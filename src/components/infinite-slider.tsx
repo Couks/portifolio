@@ -54,7 +54,7 @@ const InfiniteSlider: React.FC = () => {
   return (
     <div
       id="stacks"
-      className="w-full overflow-hidden bg-white py-8"
+      className="w-full overflow-hidden bg-white dark:bg-background py-6"
       ref={sliderRef}
     >
       <motion.div
@@ -66,8 +66,8 @@ const InfiniteSlider: React.FC = () => {
             key={`${tech.name}-${index}`}
             className="flex flex-col items-center justify-center"
           >
-            <tech.icon className="text-4xl text-black" />
-            <span className="mt-2 text-sm font-medium text-gray-600 whitespace-nowrap">
+            <tech.icon className="text-4xl text-black dark:text-primary" />
+            <span className="mt-2 text-sm font-medium text-foreground whitespace-nowrap">
               {tech.name}
             </span>
           </div>

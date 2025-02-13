@@ -24,10 +24,10 @@ export default function NavItem({
     >
       <Link href={href}>
         <motion.a
-          className={`px-3 py-2 rounded-md text-sm font-medium ${
+          className={`px-3 py-2 rounded-full text-sm font-medium ${
             isActive
-              ? "text-primary bg-purple-100"
-              : "text-gray-700 hover:text-primary hover:bg-purple-50"
+              ? "text-primary dark:text-secondary bg-zinc-100 dark:bg-white"
+              : "text-foreground hover:text-primary"
           }`}
           onClick={() => setActiveItem(name)}
           whileHover={{ scale: 1.05 }}

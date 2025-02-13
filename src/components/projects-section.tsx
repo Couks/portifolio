@@ -13,26 +13,25 @@ import { ExternalLink } from "lucide-react";
 const projects = [
   {
     title: "Ebener Taekwondo",
-    description:
-      "Site para uma academia de Taekwondo focado em resultados no Google",
+    description: "Website for a Taekwondo academy focused on Google results",
     link: "https://ebenertkd.com.br/",
     image: ebenerTKD,
   },
   {
     title: "What's Your Finances",
-    description: "Aplicação web para controle financeiro",
+    description: "Web application for financial control",
     link: "https://whats-your-finances-web-page.vercel.app/",
     image: whatsYourFinances,
   },
   {
     title: "PDC",
-    description: "Projeto desenvolvido em TypeScript",
+    description: "Project developed in TypeScript",
     link: "https://github.com/Couks/pdc",
     image: "/images/pdc.png",
   },
   {
     title: "Serviço Fácil",
-    description: "Aplicação PHP para gerenciamento de serviços",
+    description: "PHP application for service management",
     link: "https://github.com/Couks/servico_facil",
     image: "/images/servico-facil.png",
   },
@@ -52,7 +51,7 @@ export function ProjectsSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          Projetos Incríveis
+          Amazing Projects
         </motion.h2>
         <motion.p
           className="text-xl text-center mb-8"
@@ -60,8 +59,7 @@ export function ProjectsSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Explore os meus projetos mais recentes, criados com paixão e
-          dedicação.
+          Explore my most recent projects, created with passion and dedication.
         </motion.p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {projects.map((project, index) => (
@@ -83,7 +81,7 @@ export function ProjectsSection() {
                   <div className="relative h-64 md:h-80">
                     <Image
                       src={project.image || "/placeholder.svg"}
-                      alt={`Imagem do projeto ${project.title}`}
+                      alt={`Image of the project ${project.title}`}
                       layout="fill"
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
@@ -110,7 +108,7 @@ export function ProjectsSection() {
                               target="_blank"
                               className="flex items-center"
                             >
-                              Ver projeto
+                              View project
                               <ExternalLink className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>

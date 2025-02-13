@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-fit pt-24 pb-10 flex items-center justify-center overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-100 to-purple-50 opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary to-secondary opacity-30" />
       </motion.div>
 
       <div className="container mx-auto md:px-24 z-10">
@@ -23,22 +23,22 @@ export default function Hero() {
           <div className="flex-1 text-center md:text-left">
             <AnimatedText
               text="Matheus Castro"
-              className="text-4xl md:text-7xl font-bold text-gray-800 md:mb-4"
+              className="text-4xl md:text-7xl font-bold md:mb-4"
             />
             <AnimatedText
-              text="Desenvolvedor Frontend"
-              className="text-xl md:text-3xl text-gray-600 mb-8"
+              text="Frontend Developer"
+              className="text-xl md:text-3xl mb-8 text-gray-600 dark:text-gray-400"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-gray-600 mb-6 max-w-lg mx-2 md:mx-0"
+              className="mb-6 max-w-lg mx-2 md:mx-0 text-gray-800 dark:text-gray-200"
             >
-              Olá! Sou um desenvolvedor front-end apaixonado por criar
-              interfaces fluidas e acessíveis. Focado em React, Next.js e React
-              Native, busco constantemente aprimorar minhas habilidades para
-              entregar experiências de usuário excepcionais.
+              Hello! I'm a frontend developer passionate about creating fluid
+              and accessible interfaces. Focused on React, Next.js and React
+              Native, I constantly seek to improve my skills to deliver
+              exceptional user experiences.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -47,12 +47,12 @@ export default function Hero() {
               className="flex justify-center md:justify-start space-x-4"
             >
               <SocialButton
-                href="https://github.com/seu-usuario"
+                href="https://github.com/Couks"
                 icon={<Github />}
                 label="GitHub"
               />
               <SocialButton
-                href="https://linkedin.com/in/seu-perfil"
+                href="https://www.linkedin.com/in/matheuscastroks/"
                 icon={<Linkedin />}
                 label="LinkedIn"
               />
@@ -70,9 +70,9 @@ export default function Hero() {
               alt="Matheus Castro"
               layout="fill"
               objectFit="cover"
-              className="rounded-full shadow-2xl transition-all duration-300 ease-in-out hover:shadow-purple-300/50 hover:scale-105"
+              className="rounded-full shadow-3xl transition-all duration-300 ease-in-out hover:shadow-primary/50 hover:scale-105"
             />
-            <div className="absolute inset-0 rounded-full bg-purple-300 mix-blend-overlay opacity-0 hover:opacity-30 transition-opacity duration-300" />
+            <div className="absolute inset-0 rounded-full bg-primary/50 mix-blend-overlay opacity-0 hover:opacity-30 transition-opacity duration-300" />
           </motion.div>
         </div>
       </div>

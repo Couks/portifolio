@@ -1,4 +1,5 @@
-import { ExperienceSection } from "@/components/experience-section";
+import Contact from "@/components/contact-section";
+import ExperienceSection from "@/components/experience-section";
 import Hero from "@/components/hero-section";
 import InfiniteSlider from "@/components/infinite-slider";
 import Navbar from "@/components/navbar/navbar";
@@ -13,6 +14,7 @@ export default function Home() {
         <InfiniteSlider />
         <ProjectsSection />
         <ExperienceSection />
+        <Contact />
       </div>
     </>
   );

@@ -1,127 +1,112 @@
 "use client";
-
-import { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, ChevronUp, Briefcase } from "lucide-react";
+import rocketLogo from "@/assets/rocketimob-logo.png";
+import ebenerTkd from "@/assets/favicon-ebenertkd.webp";
 
 interface Experience {
-  title: string;
-  company: string;
+  type: "company" | "freelance";
+  company?: string;
+  logo?: string;
+  position: string;
   period: string;
-  description: string;
-  skills: string[];
+  responsibilities: string[];
+  technologies: string[];
 }
 
 const experiences: Experience[] = [
   {
-    title: "Desenvolvedor Full Stack",
-    company: "Tech Inovações",
-    period: "2021 - Presente",
-    description:
-      "Desenvolvimento de aplicações web escaláveis usando React, Node.js e MongoDB. Implementação de arquiteturas de microserviços e integração contínua.",
-    skills: ["React", "Node.js", "MongoDB", "Docker", "AWS"],
+    type: "company",
+    company: "Rocket Imob",
+    logo: rocketLogo.src,
+    position: "Senior Frontend Developer",
+    period: "Jan 2020 - Present",
+    responsibilities: [
+      "Led the development of a React dashboard, improving user engagement by 40%",
+      "Implemented state management using Redux, resulting in a 30% decrease in bug reports",
+      "Mentored junior developers, leading code reviews and pair programming sessions",
+    ],
+    technologies: ["React", "Redux", "TypeScript", "Tailwind CSS"],
   },
   {
-    title: "Desenvolvedor Front-end",
-    company: "Web Solutions",
-    period: "2019 - 2021",
-    description:
-      "Criação de interfaces responsivas e acessíveis para aplicações web de grande escala. Foco em otimização de performance e experiência do usuário.",
-    skills: ["JavaScript", "Vue.js", "Sass", "Webpack", "Jest"],
-  },
-  {
-    title: "Estagiário de Desenvolvimento",
-    company: "StartUp Inovadora",
-    period: "2018 - 2019",
-    description:
-      "Participação no desenvolvimento de um aplicativo móvel usando React Native. Aprendizado de boas práticas de codificação e trabalho em equipe.",
-    skills: ["React Native", "JavaScript", "Git", "Agile"],
+    type: "freelance",
+    position: "Freelance Web Developer",
+    logo: ebenerTkd.src,
+    period: "Jun 2024 - Dec 2024",
+    responsibilities: [
+      "Developed responsive websites for small and medium businesses",
+      "Created optimized landing pages for conversion",
+      "Implemented integrations with third-party APIs for e-commerce functionalities",
+    ],
+    technologies: ["HTML", "CSS", "JavaScript", "WordPress"],
   },
 ];
 
-export function ExperienceSection() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
+export default function ProfessionalExperience() {
   return (
-    <section id="experiencia" className="py-20 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-6"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          Minha Jornada Profissional
-        </motion.h2>
-        <motion.h3
-          className="text-2xl font-semibold text-center mb-8"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          Experiências Profissionais
-        </motion.h3>
-        <div className="relative">
+    <section className="py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 md:px-6">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-12 text-center">
+          Professional Experience
+        </h2>
+
+        <div className="flex flex-wrap md:flex-row gap-8 justify-center">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`mb-8 flex flex-col ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              } items-center`}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="mb-"
             >
-              <div className="w-full md:w-1/2 p-4">
-                <Card className="relative">
-                  <CardContent className="p-6">
-                    <Briefcase className="absolute top-4 right-4 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">{exp.title}</h3>
-                    <p className="text-muted-foreground mb-2">{exp.company}</p>
-                    <p className="text-sm text-muted-foreground mb-4">
+              <Card className="w-full border-2 border-primary">
+                <CardHeader className="flex flex-row items-start gap-4 ">
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage src={exp.logo} alt={`${exp.company} logo`} />
+                    <AvatarFallback>{exp.company?.[0]}</AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex-1">
+                    <CardTitle className="text-xl">
+                      {exp.type === "company" ? exp.company : exp.position}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {exp.type === "company" ? exp.position : "Freelance Work"}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       {exp.period}
                     </p>
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: expandedIndex === index ? "auto" : "0",
-                      }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="mb-4">{exp.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.skills.map((skill) => (
-                          <Badge key={skill} variant="secondary">
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </motion.div>
-                    <button
-                      onClick={() =>
-                        setExpandedIndex(expandedIndex === index ? null : index)
-                      }
-                      className="mt-4 text-primary flex items-center"
-                    >
-                      {expandedIndex === index ? (
-                        <>
-                          Menos detalhes <ChevronUp className="ml-1" />
-                        </>
-                      ) : (
-                        <>
-                          Mais detalhes <ChevronDown className="ml-1" />
-                        </>
-                      )}
-                    </button>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="w-4 h-4 bg-primary rounded-full relative z-10">
-                <div className="w-3 h-3 bg-background rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-              </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-2 mb-4">
+                    {exp.responsibilities.map((resp, idx) => (
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: index * 0.1 + idx * 0.1,
+                        }}
+                        className="text-sm"
+                      >
+                        {resp}
+                      </motion.li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech, idx) => (
+                      <Badge key={idx} variant="default">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

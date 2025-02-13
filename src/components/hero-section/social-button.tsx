@@ -13,7 +13,7 @@ interface SocialButtonProps {
 
 export default function SocialButton({ href, icon, label }: SocialButtonProps) {
   return (
-    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
       <Button
         variant="outline"
         size="lg"
