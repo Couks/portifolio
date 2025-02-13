@@ -27,7 +27,7 @@ export default function NavItem({
           className={`px-3 py-2 rounded-full text-sm font-medium ${
             isActive
               ? "text-primary dark:text-secondary bg-zinc-100 dark:bg-white"
-              : "text-foreground hover:text-primary"
+              : "text-foreground hover:text-primary bg-background"
           }`}
           onClick={() => setActiveItem(name)}
           whileHover={{ scale: 1.05 }}

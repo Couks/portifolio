@@ -17,7 +17,7 @@ export default function Contact() {
               Get in Touch
             </h2>
             <p className="max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              I'm always interested in hearing about new projects and
+              I&apos;m always interested in hearing about new projects and
               opportunities. Whether you have a question or just want to say hi,
               feel free to drop me a message!
             </p>

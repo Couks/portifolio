@@ -35,9 +35,9 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="mb-6 max-w-lg mx-2 md:mx-0 text-gray-800 dark:text-gray-200"
             >
-              Hello! I'm a frontend developer passionate about creating fluid
-              and accessible interfaces. Focused on React, Next.js and React
-              Native, I constantly seek to improve my skills to deliver
+              Hello! I&apos;m a frontend developer passionate about creating
+              fluid and accessible interfaces. Focused on React, Next.js and
+              React Native, I constantly seek to improve my skills to deliver
               exceptional user experiences.
             </motion.p>
             <motion.div
