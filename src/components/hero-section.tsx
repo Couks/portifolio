@@ -20,12 +20,10 @@ export default function Hero() {
             <AnimatedText
               text="Matheus Castro"
               className="text-4xl md:text-7xl font-bold md:mb-4"
-              animationType="fade"
             />
             <AnimatedText
               text="Frontend Developer"
               className="text-xl md:text-3xl mb-8 text-gray-600 dark:text-gray-400"
-              animationType="slide"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
