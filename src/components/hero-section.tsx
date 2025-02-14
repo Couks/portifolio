@@ -1,20 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github, Linkedin } from "lucide-react";
 import AnimatedText from "./hero-section/animated-text";
 import SocialButton from "./hero-section/social-button";
-
 import perfil from "@/assets/linkedin.jpg";
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-
   return (
     <section className="relative min-h-screen pt-24 pb-10 flex items-center justify-center overflow-hidden">
-      <motion.div style={{ y }} className="absolute inset-0 z-0">
+      <motion.div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-primary to-secondary opacity-30" />
       </motion.div>
 
