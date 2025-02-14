@@ -100,6 +100,7 @@ export default function Navbar() {
                 />
               ))}
             </div>
+            <ThemeToggle />
           </div>
         </div>
       </motion.nav>
