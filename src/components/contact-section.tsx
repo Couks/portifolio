@@ -8,11 +8,11 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900"
+      className="flex items-center justify-center min-h-screen py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900"
     >
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div className="space-y-6">
+      <div className="container mx-auto px-4 md:px-24">
+        <div className="flex flex-row items-center jusitfy-center gap-8">
+          <div className="w-full space-y-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Get in Touch
             </h2>
@@ -48,7 +48,7 @@ export default function Contact() {
               </Link>
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="w-full space-y-4">
             <form className="space-y-4">
               <div className="space-y-2">
                 <label

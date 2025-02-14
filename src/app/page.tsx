@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex flex-col">
+      <div className=" min-h-screen flex flex-col">
         <Hero />
         <InfiniteSlider />
         <ProjectsSection />

@@ -13,7 +13,7 @@ export default function Hero() {
   const y = useTransform(scrollY, [0, 500], [0, 150]);
 
   return (
-    <section className="relative min-h-fit pt-24 pb-10 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-24 pb-10 flex items-center justify-center overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-primary to-secondary opacity-30" />
       </motion.div>
@@ -24,10 +24,12 @@ export default function Hero() {
             <AnimatedText
               text="Matheus Castro"
               className="text-4xl md:text-7xl font-bold md:mb-4"
+              animationType="fade"
             />
             <AnimatedText
               text="Frontend Developer"
               className="text-xl md:text-3xl mb-8 text-gray-600 dark:text-gray-400"
+              animationType="slide"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -36,9 +38,10 @@ export default function Hero() {
               className="mb-6 max-w-lg mx-2 md:mx-0 text-gray-800 dark:text-gray-200"
             >
               Hello! I&apos;m a frontend developer passionate about creating
-              fluid and accessible interfaces. Focused on React, Next.js and
-              React Native, I constantly seek to improve my skills to deliver
-              exceptional user experiences.
+              fluid and accessible interfaces. I design and code beautifully
+              simple things, and I love what I do. <br />
+              Focused on React, Next.js and React Native, I constantly seek to
+              improve my skills to deliver exceptional user experiences.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
