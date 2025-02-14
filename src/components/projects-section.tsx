@@ -26,12 +26,6 @@ const projects = [
     image: whatsYourFinances,
   },
   {
-    title: "What's Your Finances",
-    description: "Web application for financial control",
-    link: "https://whats-your-finances-web-page.vercel.app/",
-    image: placeholder,
-  },
-  {
     title: "Authentication API",
     description:
       "API with several endpoints for user authentication and management",
