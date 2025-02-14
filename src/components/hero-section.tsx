@@ -9,7 +9,7 @@ import perfil from "@/assets/linkedin.jpg";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-24 pb-10 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen md:pt-24 flex items-center justify-center overflow-hidden">
       <motion.div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-primary to-secondary opacity-30" />
       </motion.div>

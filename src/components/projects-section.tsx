@@ -83,7 +83,7 @@ export function ProjectsSection() {
                 onHoverEnd={() => setHoveredIndex(null)}
               >
                 <CardContent className="p-0 relative">
-                  <div className="relative h-32 md:h-60">
+                  <div className="relative h-48 md:h-60">
                     <Image
                       src={project.image || placeholder}
                       alt={`Image of the project ${project.title}`}
