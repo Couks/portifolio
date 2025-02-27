@@ -12,13 +12,18 @@ import {
   SiTailwindcss,
   SiGraphql,
   SiExpo,
+  SiHtml5,
+  SiCss3,
+  SiPhp,
 } from "react-icons/si";
+
+import { FaNode, FaVuejs } from "react-icons/fa";
 import { TbApi } from "react-icons/tb";
 
 const technologies = [
   { name: "React Native", icon: SiReact },
-  { name: "React JS", icon: SiReact },
   { name: "Next JS", icon: SiNextdotjs },
+  { name: "React JS", icon: SiReact },
   { name: "JavaScript", icon: SiJavascript },
   { name: "TypeScript", icon: SiTypescript },
   { name: "Docker", icon: SiDocker },
@@ -26,6 +31,11 @@ const technologies = [
   { name: "REST API", icon: TbApi },
   { name: "GraphQL", icon: SiGraphql },
   { name: "Expo", icon: SiExpo },
+  { name: "Vue JS", icon: FaVuejs },
+  { name: "Node JS", icon: FaNode },
+  { name: "HTML", icon: SiHtml5 },
+  { name: "CSS", icon: SiCss3 },
+  { name: "PHP", icon: SiPhp },
 ];
 
 const InfiniteSlider: React.FC = () => {
@@ -39,10 +49,11 @@ const InfiniteSlider: React.FC = () => {
         x: [0, -100 * technologies.length],
         transition: {
           x: {
-            repeat: Number.POSITIVE_INFINITY,
+            repeat: Infinity,
             repeatType: "loop",
             duration: 20,
             ease: "linear",
+            repeatDelay: 0,
           },
         },
       });
@@ -62,15 +73,20 @@ const InfiniteSlider: React.FC = () => {
         animate={controls}
       >
         {[...technologies, ...technologies].map((tech, index) => (
-          <div
+          <motion.div
             key={`${tech.name}-${index}`}
             className="flex flex-col items-center justify-center"
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <tech.icon className="text-4xl text-black dark:text-primary" />
             <span className="mt-2 text-sm font-medium text-foreground whitespace-nowrap">
               {tech.name}
             </span>
-          </div>
+          </motion.div>
         ))}
       </motion.div>
     </div>
