@@ -48,14 +48,19 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="py-20 bg-secondary overflow-hidden min-h-screen flex items-center justify-center"
+      className="py-20 bg-apple overflow-hidden min-h-screen flex items-center justify-center"
     >
       <div className="container mx-auto px-4 md:px-8">
         <motion.h2
           className="text-4xl font-bold text-center mb-6"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{
+            type: "spring",
+            stiffness: 80,
+            damping: 15,
+            delay: 0.4,
+          }}
         >
           Amazing Projects
         </motion.h2>
@@ -63,7 +68,12 @@ export function ProjectsSection() {
           className="text-xl text-center mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{
+            type: "spring",
+            stiffness: 80,
+            damping: 15,
+            delay: 0.4,
+          }}
         >
           Explore my most recent projects, created with passion and dedication.
         </motion.p>
@@ -88,9 +98,9 @@ export function ProjectsSection() {
                       src={project.image || placeholder}
                       alt={`Image of the project ${project.title}`}
                       layout="fill"
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-90 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-black opacity-40 group-hover:opacity-90 transition-opacity duration-300" />
                   </div>
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
                     <h3 className="font-bold text-2xl text-white mb-2">
@@ -109,11 +119,7 @@ export function ProjectsSection() {
                           className="flex gap-4"
                         >
                           {project.link ? (
-                            <Button
-                              asChild
-                              variant="secondary"
-                              className="group"
-                            >
+                            <Button asChild variant="apple" className="group">
                               <Link
                                 href={project.link}
                                 target="_blank"
@@ -129,7 +135,7 @@ export function ProjectsSection() {
                               <div key={linkIndex} className="">
                                 <Button
                                   asChild
-                                  variant="secondary"
+                                  variant="apple"
                                   className="group"
                                 >
                                   <Link

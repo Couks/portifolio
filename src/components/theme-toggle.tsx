@@ -17,7 +17,7 @@ export function ThemeToggle() {
       transition={{ duration: 0.3 }}
     >
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         className="rounded-full"

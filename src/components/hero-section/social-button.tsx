@@ -17,7 +17,7 @@ export default function SocialButton({ href, icon, label }: SocialButtonProps) {
       <Button
         variant="outline"
         size="lg"
-        className="bg-white text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+        className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-lg shadow-md transition-all hover:bg-white/20 hover:scale-105"
         asChild
       >
         <Link

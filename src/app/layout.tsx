@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased tracking-tighter `}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="font-mono">
             {children}

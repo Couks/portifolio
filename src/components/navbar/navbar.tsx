@@ -37,14 +37,14 @@ export function NavItem({
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 2.4, delay: index * 0.2 }}
     >
       <Link href={href}>
         <motion.a
           className={`px-3 py-2 rounded-full text-sm font-medium ${
             isActive
-              ? "text-primary dark:text-secondary md:bg-zinc-200 md:dark:bg-white"
-              : "text-foreground hover:text-primary"
+              ? "text-primary dark:text-secondary bg-foreground/10 dark:bg-white"
+              : "text-foreground hover:text-primary "
           }`}
           onClick={() => setActiveItem(name)}
           whileHover={{ scale: 1.05 }}
@@ -62,8 +62,13 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav className="fixed top-2 w-full hidden md:block z-50 ">
-        <div className="flex w-fit mx-auto px-2 gap-8 bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-20 backdrop-blur-md shadow-lg rounded-full">
+      <motion.nav
+        initial={{ x: "-80%" }}
+        animate={{ x: "calc(100vw - 100%)" }}
+        transition={{ type: "spring", duration: 2, bounce: 0.6 }}
+        className="fixed top-2 w-full hidden md:block z-50 "
+      >
+        <div className="flex w-fit mx-auto px-2 gap-8 bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-20 backdrop-blur-md shadow-lg rounded-full">
           <div className="flex justify-around items-center gap-4 h-12">
             <div className="hidden md:flex gap-2">
               {navItems.map((item, index) => (
@@ -84,7 +89,7 @@ export default function Navbar() {
       </motion.nav>
 
       <motion.nav className="fixed bottom-8 w-full block md:hidden z-50">
-        <div className="flex w-fit mx-auto px-2 gap-8 bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-20 backdrop-blur-md shadow-lg rounded-full">
+        <div className="flex w-fit mx-auto px-2 gap-8 bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-20 backdrop-blur-md shadow-lg rounded-full">
           <div className="flex justify-around items-center gap-4 h-12">
             <div className="flex gap-8">
               {navItems.map((item, index) => (
