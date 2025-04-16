@@ -7,10 +7,9 @@ import { cn } from "@/lib/utils"
 interface AnimatedTextProps {
   text: string
   className?: string
-  once?: boolean
 }
 
-export default function AnimatedText({ text, className, once = true }: AnimatedTextProps) {
+export default function AnimatedText({ text, className }: AnimatedTextProps) {
   const [scope, animate] = useAnimate()
 
   useEffect(() => {
