@@ -5,7 +5,6 @@ import Hero from "@/components/sections/hero-section";
 import TechSection from "@/components/sections/tech-section";
 import Navbar from "@/components/navbar";
 import { ProjectsSection } from "@/components/sections/projects-section";
-import TechDock from "@/components/ui/tech-dock";
 
 export default function Home() {
   return (

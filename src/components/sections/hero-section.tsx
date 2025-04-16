@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Github, Linkedin, Mail } from 'lucide-react'
 import SectionLayout from "../section-layout"
 import linkedin from "@/assets/gif.gif"

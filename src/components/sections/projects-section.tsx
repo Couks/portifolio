@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import { motion, useInView } from "framer-motion"
 import { ExternalLink } from 'lucide-react'
-import AnimatedText from "../animated-text"
 import ebenerTKD from "@/assets/ebenertkd.png"
 import whatsYourFinances from "@/assets/whats-your-finances.png"
 import WebAppSecurity from "@/assets/web-app-security.png"

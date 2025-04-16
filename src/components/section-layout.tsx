@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface SectionLayoutProps {
@@ -26,10 +26,6 @@ export default function SectionLayout({
   contentClassName,
 }: SectionLayoutProps) {
 
-  // const { scrollY } = useScroll()
-  // const opacity = useTransform(scrollY, [0, 300], [1, 0])
-  // const scale = useTransform(scrollY, [0, 300], [1, 0.95])
-  // const y = useTransform(scrollY, [0, 300], [0, 50])
 
   return (
     <section
