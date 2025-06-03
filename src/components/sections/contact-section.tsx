@@ -47,15 +47,15 @@ export default function Contact() {
   const [typingText, setTypingText] = useState("");
   const [typingIndex, setTypingIndex] = useState(0);
 
-  const messagePlaceholders = [
-    "I'd love to discuss your project ideas...",
-    "Tell me about the challenges you're facing...",
-    "Looking for a collaboration opportunity?",
-    "Need help with your next web project?",
-  ];
-
   // Typing animation effect
   useEffect(() => {
+    const messagePlaceholders = [
+      "I'd love to discuss your project ideas...",
+      "Tell me about the challenges you're facing...",
+      "Looking for a collaboration opportunity?",
+      "Need help with your next web project?",
+    ];
+
     const currentMessage = messagePlaceholders[currentPlaceholder];
 
     if (typingIndex < currentMessage.length) {
@@ -380,7 +380,7 @@ export default function Contact() {
                   Message Sent!
                 </h3>
                 <p className="text-center text-muted-foreground mb-4">
-                  Thank you for reaching out. I'll get back to you as soon as
+                  Thank you for reaching out. I&apos;ll get back to you as soon as
                   possible.
                 </p>
                 <motion.div
