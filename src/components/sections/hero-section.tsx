@@ -1,14 +1,64 @@
 "use client"
 
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import { Github, Linkedin, Mail } from 'lucide-react'
 import SectionLayout from "../section-layout"
 import linkedin from "@/assets/gif.gif"
 import AnimatedText from "../animated-text"
 import AnimatedButton from "../animated-button"
+import AnimatedCard from "../animated-card"
 
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion()
+
+  const imageContainerVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 50
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+        delay: 0.2,
+        duration: prefersReducedMotion ? 0.1 : 0.8
+      }
+    }
+  }
+
+  const imageVariants = {
+    hidden: { 
+      opacity: 0,
+      scale: 1.1
+    },
+    visible: { 
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: 0.4,
+        duration: prefersReducedMotion ? 0.1 : 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: {
+        delay: 0.6,
+        duration: prefersReducedMotion ? 0.1 : 0.4
+      }
+    }
+  }
+
   return (
     <SectionLayout id="about" title="" className="min-h-screen">
       <div
@@ -18,38 +68,85 @@ export default function Hero() {
           {/* Profile Image */}
           <motion.div
             className="order-1 lg:order-2 relative mx-auto w-60 h-60 sm:w-64 sm:h-64 lg:w-[100%] lg:h-[100%]"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.2 }}
+            variants={imageContainerVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover={prefersReducedMotion ? {} : {
+              scale: 1.02,
+              transition: {
+                type: "spring",
+                stiffness: 400,
+                damping: 25
+              }
+            }}
           >
             <div className="relative w-full h-full">
               {/* iOS-style image container with subtle effects */}
-              <div className="absolute -inset-4 rounded-lg bg-gradient-to-tr from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/10 shadow-xl" />
-              
-              <Image
-                src={linkedin || "/placeholder.svg"}
-                alt="Matheus Castro"
-                unoptimized
-                fill
-                priority
-                sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
-                className="rounded-md object-cover shadow-xl"
+              <motion.div 
+                className="absolute -inset-4 rounded-lg bg-gradient-to-tr from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/10 shadow-xl" 
+                variants={overlayVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={prefersReducedMotion ? {} : {
+                  scale: 1.01,
+                  transition: {
+                    duration: 0.3,
+                    ease: "easeOut"
+                  }
+                }}
               />
-              <div className="absolute right-4 bg-red--500"></div>
+              
+              <motion.div
+                className="relative w-full h-full overflow-hidden rounded-md"
+                variants={imageVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <Image
+                  src={linkedin || "/placeholder.svg"}
+                  alt="Matheus Castro"
+                  unoptimized
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
+                  className="rounded-md object-cover shadow-xl transition-transform duration-500 hover:scale-105"
+                />
+              </motion.div>
               
               {/* Subtle reflection overlay */}
-              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-b from-primary/10 to-transparent opacity-50" />
+              <motion.div 
+                className="absolute inset-0 rounded-[32px] bg-gradient-to-b from-primary/10 to-transparent opacity-50" 
+                variants={overlayVariants}
+                initial="hidden"
+                animate="visible"
+              />
               
               {/* Subtle floating animation */}
               <motion.div
                 className="absolute -inset-0.5 rounded-[32px]"
-                animate={{
+                animate={prefersReducedMotion ? {} : {
                   y: [0, -5, 0],
                 }}
                 transition={{
                   duration: 4,
                   repeat: Number.POSITIVE_INFINITY,
                   repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              />
+
+              {/* Animated border glow */}
+              <motion.div
+                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 opacity-0"
+                animate={prefersReducedMotion ? {} : {
+                  opacity: [0, 0.3, 0],
+                  scale: [1, 1.02, 1]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
                 }}
               />
             </div>
@@ -64,17 +161,19 @@ export default function Hero() {
                   className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
                 />
                 <AnimatedText
-                  text="Frontend Developer"
+                  text="Full Stack Developer"
                   className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mt-2"
+                />
+                <AnimatedText
+                  text="React • Next.js • TypeScript • React Native"
+                  className="text-sm md:text-base text-muted-fo font-medium mt-3"
                 />
               </div>
 
               {/* Bio with subtle backdrop blur */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.2 }}
-                className="relative backdrop-blur-md bg-primary/5 rounded-2xl p-6 border border-primary/10"
+              <AnimatedCard
+                delay={0.4}
+                className="relative p-6"
               >
                 <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
                   Hi there! 👋 <br />
@@ -85,7 +184,7 @@ export default function Hero() {
                   Focused on React, Next.js and React Native, I constantly seek to improve my skills to deliver
                   exceptional user experiences.
                 </p>
-              </motion.div>
+              </AnimatedCard>
 
               {/* Social buttons - iOS style */}
               <motion.div
@@ -98,19 +197,19 @@ export default function Hero() {
                   href="https://github.com/Couks"
                   icon={<Github className="w-5 h-5" />}
                   label="GitHub"
-                  variant="apple"
+                  variant="apple-primary"
                 />
                 <AnimatedButton
                   href="https://www.linkedin.com/in/matheuscastroks/"
                   icon={<Linkedin className="w-5 h-5" />}
                   label="LinkedIn"
-                  variant="apple"
+                  variant="apple-primary"
                 />
                 <AnimatedButton
                   href="mailto:matheuscastroks@gmail.com"
                   icon={<Mail className="w-5 h-5" />}
                   label="Hire me"
-                  variant="apple-primary"
+                  variant="apple"
                 />
               </motion.div>
             </div>

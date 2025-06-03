@@ -275,7 +275,7 @@ export default function Contact() {
             </h3>
 
             <motion.div
-              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-lg w-full border border-foreground/5"
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
@@ -294,7 +294,7 @@ export default function Contact() {
             </motion.div>
 
             <motion.div
-              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-lg w-full border border-foreground/5"
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
@@ -311,7 +311,7 @@ export default function Contact() {
 
             {/* Availability info */}
             <motion.div
-              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-lg w-full border border-foreground/5"
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
@@ -387,7 +387,7 @@ export default function Contact() {
             {formState === "success" ? (
               <motion.div
                 key="success"
-                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm border border-foreground/10"
+                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-lg border border-foreground/10"
                 variants={formSuccessVariants}
                 initial="hidden"
                 animate="visible"
@@ -430,7 +430,7 @@ export default function Contact() {
             ) : formState === "error" ? (
               <motion.div
                 key="error"
-                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm border border-foreground/10"
+                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-lg border border-foreground/10"
                 variants={formSuccessVariants}
                 initial="hidden"
                 animate="visible"
@@ -456,7 +456,7 @@ export default function Contact() {
               <motion.form
                 key="form"
                 onSubmit={handleSubmit}
-                className="space-y-5 p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm shadow-sm border border-foreground/10 relative overflow-hidden"
+                className="space-y-5 p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-lg shadow-sm border border-foreground/10 relative overflow-hidden"
                 variants={itemVariants}
               >
                 <motion.div className="space-y-2" variants={itemVariants}>
