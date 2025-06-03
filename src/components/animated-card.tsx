@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode } from "react"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 interface AnimatedCardProps {
@@ -23,21 +23,56 @@ export default function AnimatedCard({
   onMouseEnter,
   onMouseLeave,
 }: AnimatedCardProps) {
+  const prefersReducedMotion = useReducedMotion()
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+        duration: prefersReducedMotion ? 0.2 : 0.6,
+        delay: delay || index * 0.1
+      }
+    },
+    hover: prefersReducedMotion ? {} : {
+      y: -5,
+      scale: 1.02,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 20
+      }
+    },
+    tap: prefersReducedMotion ? {} : {
+      scale: 0.98,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 30
+      }
+    }
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.2, delay: delay || index * 0.1 }}
+      variants={cardVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      whileHover="hover"
+      whileTap="tap"
       className={cn(
-        "relative backdrop-blur-sm border shadow-lg rounded-2xl overflow-hidden bg-card/80",
+        "relative backdrop-blur-lg border shadow-lg rounded-2xl overflow-hidden bg-card/80",
         className
       )}
-      whileHover={{
-        y: -5,
-        scale: 1.02,
-        transition: { duration: 0.2 },
-        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

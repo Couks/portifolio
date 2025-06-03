@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 interface AnimatedButtonProps {
@@ -12,20 +12,99 @@ interface AnimatedButtonProps {
   icon: React.ReactNode
   label: string
   variant?: "default" | "apple" | "apple-primary"
-  className?: string // Added className as an optional prop
+  className?: string
 }
 
 export default function AnimatedButton({ href, icon, label, variant = "default", className }: AnimatedButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+
+  const buttonVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 20
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 25,
+        duration: prefersReducedMotion ? 0.2 : 0.6
+      }
+    },
+    hover: prefersReducedMotion ? {} : {
+      scale: 1.05,
+      y: -2,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 20
+      }
+    },
+    tap: prefersReducedMotion ? {} : {
+      scale: 0.98,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 30
+      }
+    }
+  }
+
+  const iconVariants = {
+    rest: { 
+      scale: 1,
+      rotate: 0,
+      filter: "drop-shadow(0 0 0px transparent)"
+    },
+    hover: prefersReducedMotion ? {} : {
+      scale: 1.1,
+      rotate: 5,
+      filter: variant === "apple" 
+        ? "drop-shadow(0 0 8px hsl(var(--secondary)))"
+        : variant === "apple-primary"
+        ? "drop-shadow(0 0 8px hsl(var(--primary)))"
+        : "drop-shadow(0 0 4px hsl(var(--primary)))",
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 20
+      }
+    }
+  }
+
+  const glowVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8 
+    },
+    visible: { 
+      opacity: variant === "apple-primary" ? 0.15 : 0.1, 
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 25
+      }
+    }
+  }
 
   if (variant === "apple") {
     return (
       <motion.div
-        className="relative"
+        variants={buttonVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        whileTap="tap"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.98 }}
+        className="relative"
       >
         <Link
           href={href}
@@ -33,37 +112,63 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
           rel="noopener noreferrer"
           className={cn(
             "relative flex items-center gap-2 px-5 py-2.5 rounded-full",
-            "backdrop-blur-3xl bg-secondary/90 border border-border",
+            "backdrop-blur-lg bg-secondary/90 border border-border",
             "text-foreground font-medium",
             "transition-all duration-300",
             "hover:bg-secondary hover:shadow-lg hover:shadow-secondary/20",
+            "overflow-hidden",
             className
           )}
         >
-          {/* Icon with subtle glow effect */}
+          {/* Icon with enhanced animations */}
           <motion.span
-            className="relative"
-            animate={{
-              filter: isHovered
-                ? "drop-shadow(0 0 4px hsl(var(--secondary)))"
-                : "drop-shadow(0 0 0px transparent)",
-            }}
-            transition={{ duration: 0.2 }}
+            variants={iconVariants}
+            animate={isHovered ? "hover" : "rest"}
+            className="relative z-10"
           >
             {icon}
           </motion.span>
 
-          {/* Label */}
-          <span>{label}</span>
+          {/* Label with subtle slide effect */}
+          <motion.span
+            initial={{ x: 0 }}
+            animate={prefersReducedMotion ? {} : {
+              x: isHovered ? 2 : 0
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 25
+            }}
+            className="relative z-10"
+          >
+            {label}
+          </motion.span>
 
-          {/* Background glow effect */}
+          {/* Enhanced background glow effect */}
           {isHovered && (
             <motion.div
-              className="absolute inset-0 rounded-full opacity-20 bg-secondary"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              variants={glowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="absolute inset-0 rounded-full bg-secondary"
+            />
+          )}
+
+          {/* Shimmer effect */}
+          {isHovered && !prefersReducedMotion && (
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)"
+              }}
+              initial={{ x: "-100%" }}
+              animate={{ x: "100%" }}
+              transition={{
+                duration: 0.6,
+                ease: "easeInOut"
+              }}
             />
           )}
         </Link>
@@ -74,11 +179,14 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
   if (variant === "apple-primary") {
     return (
       <motion.div
-        className="relative"
+        variants={buttonVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        whileTap="tap"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.98 }}
+        className="relative"
       >
         <Link
           href={href}
@@ -90,33 +198,59 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
             "text-primary-foreground font-medium",
             "transition-all duration-300",
             "hover:shadow-lg hover:shadow-primary/20",
+            "overflow-hidden",
             className 
           )}
         >
-          {/* Icon with glow effect */}
+          {/* Icon with enhanced animations */}
           <motion.span
-            className="relative"
-            animate={{
-              filter: isHovered
-                ? "drop-shadow(0 0 4px hsl(var(--primary)))"
-                : "drop-shadow(0 0 0px transparent)",
-            }}
-            transition={{ duration: 0.2 }}
+            variants={iconVariants}
+            animate={isHovered ? "hover" : "rest"}
+            className="relative z-10"
           >
             {icon}
           </motion.span>
 
-          {/* Label */}
-          <span>{label}</span>
+          {/* Label with subtle slide effect */}
+          <motion.span
+            initial={{ x: 0 }}
+            animate={prefersReducedMotion ? {} : {
+              x: isHovered ? 2 : 0
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 25
+            }}
+            className="relative z-10"
+          >
+            {label}
+          </motion.span>
 
-          {/* Background glow effect */}
+          {/* Enhanced background glow effect */}
           {isHovered && (
             <motion.div
-              className="absolute inset-0 rounded-full opacity-20 bg-primary-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.15 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              variants={glowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="absolute inset-0 rounded-full bg-primary-foreground"
+            />
+          )}
+
+          {/* Shimmer effect */}
+          {isHovered && !prefersReducedMotion && (
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)"
+              }}
+              initial={{ x: "-100%" }}
+              animate={{ x: "100%" }}
+              transition={{
+                duration: 0.6,
+                ease: "easeInOut"
+              }}
             />
           )}
         </Link>
@@ -124,20 +258,47 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
     )
   }
 
-  // Default variant
+  // Default variant with enhanced animations
   return (
-    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <motion.div 
+      variants={buttonVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
+      whileTap="tap"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
       <Link
         href={href}
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium",
+          "relative flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium overflow-hidden",
           className 
         )}
       >
-        {icon}
-        <span>{label}</span>
+        {/* Icon with animations */}
+        <motion.span
+          variants={iconVariants}
+          animate={isHovered ? "hover" : "rest"}
+        >
+          {icon}
+        </motion.span>
+
+        {/* Label */}
+        <motion.span
+          animate={prefersReducedMotion ? {} : {
+            x: isHovered ? 1 : 0
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 25
+          }}
+        >
+          {label}
+        </motion.span>
       </Link>
     </motion.div>
   )
