@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "About", href: "#about", icon: <Home className="w-4 h-4" /> },
-  { name: "Skills", href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
+  { name: "Stacks", href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
   {
     name: "Projects",
     href: "#projects",
@@ -310,7 +310,7 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
       }}
     >
       <motion.div 
-        className="flex items-start flex-col gap-3 p-3 rounded-md backdrop-blur-md border shadow-lg bg-background/80 border-border"
+        className="flex items-center flex-col gap-3 p-3 rounded-md backdrop-blur-lg border shadow-lg bg-background/80 border-border"
         variants={containerVariants}
         layout={!prefersReducedMotion}
       >
@@ -485,7 +485,7 @@ const MobileNavbar = React.memo(function MobileNavbar({
       >
         <motion.button
           onClick={toggleMobileMenu}
-          className="p-3 rounded-full backdrop-blur-md border shadow-lg bg-background/80 border-border"
+          className="p-3 rounded-full backdrop-blur-lg border shadow-lg bg-background/80 border-border"
           variants={buttonVariants}
           animate={isMobileMenuOpen ? "open" : "closed"}
           whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
@@ -526,7 +526,7 @@ const MobileNavbar = React.memo(function MobileNavbar({
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border shadow-lg bg-background/95 backdrop-blur-md p-4"
+            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border shadow-lg bg-background/95 backdrop-blur-lg p-4"
           >
             <motion.div 
               className="flex justify-between items-center mb-4"
