@@ -162,19 +162,19 @@ export default function Contact() {
     },
   };
 
-  const iconVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { type: "spring", stiffness: 260, damping: 20 },
-    },
-    hover: {
-      scale: 1.2,
-      rotate: 10,
-      transition: { duration: 0.2 },
-    },
-  };
+  // const iconVariants = {
+  //   hidden: { opacity: 0, scale: 0 },
+  //   visible: {
+  //     opacity: 1,
+  //     scale: 1,
+  //     transition: { type: "spring", stiffness: 260, damping: 20 },
+  //   },
+  //   hover: {
+  //     scale: 1.2,
+  //     rotate: 10,
+  //     transition: { duration: 0.2 },
+  //   },
+  // };
 
   // Decorative elements
   const decorativeElements = [

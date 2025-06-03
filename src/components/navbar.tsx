@@ -8,7 +8,7 @@ import {
   Home,
   Briefcase,
   Code,
-  GraduationCap,
+  // GraduationCap,
   Phone,
   Menu,
   X,

@@ -1,5 +1,5 @@
 import Contact from "@/components/sections/contact-section";
-import ExperienceSection from "@/components/sections/experience-section";
+// import ExperienceSection from "@/components/sections/experience-section";
 import Footer from "@/components/footer";
 import Hero from "@/components/sections/hero-section";
 import TechSection from "@/components/sections/tech-section";
