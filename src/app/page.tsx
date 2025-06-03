@@ -13,9 +13,8 @@ export default function Home() {
       <div className=" min-h-screen flex flex-col text-black dark:text-white bg-grid-pattern bg-[length:150px_150px] bg-repeat">
         <Hero />
         <TechSection />
-
         <ProjectsSection />
-        <ExperienceSection />
+        {/* <ExperienceSection /> */}
         <Contact />
         <Footer />
       </div>

@@ -1,118 +1,571 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Github, Linkedin, Mail, MapPin, Send } from "lucide-react"
-import Link from "next/link"
-import SectionLayout from "../section-layout"
-import AnimatedButton from "../animated-button"
+import type React from "react";
+
+import { useState, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useAnimation,
+} from "framer-motion";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  Loader2,
+  Calendar,
+  Clock,
+  Coffee,
+  Sparkles,
+  Code,
+  Rocket,
+} from "lucide-react";
+import Link from "next/link";
+import SectionLayout from "../section-layout";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 export default function Contact() {
+  const [formState, setFormState] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    priority: "normal",
+  });
+  const prefersReducedMotion = useReducedMotion();
+  const controls = useAnimation();
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const [typingText, setTypingText] = useState("");
+  const [typingIndex, setTypingIndex] = useState(0);
+
+  const messagePlaceholders = [
+    "I'd love to discuss your project ideas...",
+    "Tell me about the challenges you're facing...",
+    "Looking for a collaboration opportunity?",
+    "Need help with your next web project?",
+  ];
+
+  // Typing animation effect
+  useEffect(() => {
+    const currentMessage = messagePlaceholders[currentPlaceholder];
+
+    if (typingIndex < currentMessage.length) {
+      const timeout = setTimeout(() => {
+        setTypingText((prev) => prev + currentMessage[typingIndex]);
+        setTypingIndex((prev) => prev + 1);
+      }, 50);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setTypingText("");
+        setTypingIndex(0);
+        setCurrentPlaceholder(
+          (prev) => (prev + 1) % messagePlaceholders.length
+        );
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [typingIndex, currentPlaceholder]);
+
+  // Floating animation
+  useEffect(() => {
+    controls.start({
+      y: [0, -10, 0],
+      transition: {
+        duration: 6,
+        repeat: Number.POSITIVE_INFINITY,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+    });
+  }, [controls]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleRadioChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, priority: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState("submitting");
+
+    // Simulate form submission
+    setTimeout(() => {
+      setFormState("success");
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormState("idle");
+        setFormData({ name: "", email: "", message: "", priority: "normal" });
+      }, 3000);
+    }, 1500);
+  };
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.1,
+        delayChildren: prefersReducedMotion ? 0 : 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const socialVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
+    hover: {
+      scale: 1.15,
+      rotate: 5,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const formSuccessVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const iconVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { type: "spring", stiffness: 260, damping: 20 },
+    },
+    hover: {
+      scale: 1.2,
+      rotate: 10,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  // Decorative elements
+  const decorativeElements = [
+    { icon: <Code />, top: "10%", left: "5%", delay: 0 },
+    { icon: <Rocket />, top: "20%", right: "8%", delay: 0.1 },
+    { icon: <Sparkles />, bottom: "15%", left: "7%", delay: 0.2 },
+    { icon: <Coffee />, bottom: "25%", right: "5%", delay: 0.3 },
+  ];
+
   return (
     <SectionLayout
       id="contact"
-      title="Get in Touch"
-      subtitle="I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to drop me a message!"
+      title="Let's Create Something Amazing Together"
+      subtitle="Have a project in mind? I'm always excited to hear new ideas and challenges!"
     >
-      <div className="grid gap-16 lg:grid-cols-2">
-        <motion.div
-          className="space-y-8"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className="space-y-4">
+      {/* Decorative floating elements */}
+      {!prefersReducedMotion &&
+        decorativeElements.map((el, i) => (
+          <motion.div
+            key={i}
+            className="absolute z-10 text-primary/30 hidden md:block"
+            style={{
+              top: el.top || "auto",
+              left: el.left || "auto",
+              right: el.right || "auto",
+              bottom: el.bottom || "auto",
+            }}
+            initial={{ opacity: 0 }}
+            animate={controls}
+            transition={{ delay: el.delay }}
+          >
             <motion.div
-              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/10 to-foreground/20 rounded-3xl shadow-lg backdrop-blur-md w-full max-w-md"
-              whileHover={{ scale: 1.05 }}
+              className="text-3xl"
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 20,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear",
+              }}
             >
-              <Mail className="w-8 h-8 text-primary" />
-              <span className="text-lg font-medium text-foreground/90">matheuscastroks@gmail.com</span>
+              {el.icon}
             </motion.div>
+          </motion.div>
+        ))}
+
+      <motion.div
+        className="grid gap-8 lg:gap-16 lg:grid-cols-5 items-center max-w-5xl mx-auto relative"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        {/* Left Column - Contact Info */}
+        <motion.div className="space-y-8 lg:col-span-2" variants={itemVariants}>
+          {/* Personal touch - Avatar and greeting */}
+          <motion.div
+            className="flex flex-col items-center lg:items-start gap-4 mb-6"
+            variants={itemVariants}
+          >
+            <div className="text-center lg:text-left">
+              <h3 className="text-xl font-bold">Hey there! 👋</h3>
+              <p className="text-muted-foreground">
+                Currently available for new projects
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-primary rounded-full"></span>
+              Contact Information
+            </h3>
+
             <motion.div
-              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/10 to-foreground/20 rounded-3xl shadow-lg backdrop-blur-md w-full max-w-md"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <MapPin className="w-8 h-8 text-primary" />
-              <span className="text-lg font-medium text-foreground/90">Rio de Janeiro, RJ</span>
+              <div className="p-3 bg-primary/10 rounded-full">
+                <Mail className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Email</p>
+                <a
+                  href="mailto:matheuscastroks@gmail.com"
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  matheuscastroks@gmail.com
+                </a>
+              </div>
             </motion.div>
-          </div>
-          <div className="flex space-x-4 mt-6 justify-start">
-            <motion.div className="p-3 bg-foreground/10 rounded-full shadow-md" whileHover={{ scale: 1.2, rotate: 10 }}>
-              <Link
-                href="https://github.com/Couks"
-                target="_blank"
-                className="text-foreground/80 hover:text-primary transition-colors"
+
+            <motion.div
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <div className="p-3 bg-primary/10 rounded-full">
+                <MapPin className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Location</p>
+                <span className="text-base font-medium text-foreground">
+                  Rio de Janeiro, RJ
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Availability info */}
+            <motion.div
+              className="flex items-center space-x-4 p-4 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-2xl shadow-sm backdrop-blur-md w-full border border-foreground/5"
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <div className="p-3 bg-primary/10 rounded-full">
+                <Clock className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Availability</p>
+                <span className="text-base font-medium text-foreground">
+                  Response within 24-48 hours
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div className="space-y-4" variants={itemVariants}>
+            <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-primary rounded-full"></span>
+              Connect
+            </h3>
+            <div className="flex space-x-4">
+              <motion.div
+                variants={socialVariants}
+                whileHover="hover"
+                className="p-4 bg-foreground/5 rounded-2xl shadow-sm border border-foreground/5"
               >
-                <Github className="w-8 h-8" />
-                <span className="sr-only">GitHub</span>
-              </Link>
-            </motion.div>
-            <motion.div className="p-3 bg-foreground/10 rounded-full shadow-md" whileHover={{ scale: 1.2, rotate: 10 }}>
-              <Link
-                href="https://www.linkedin.com/in/matheus-castro-araujo/"
-                target="_blank"
-                className="text-foreground/80 hover:text-primary transition-colors"
+                <Link
+                  href="https://github.com/Couks"
+                  target="_blank"
+                  className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
+                >
+                  <Github className="w-6 h-6" />
+                  <span className="text-xs">GitHub</span>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                variants={socialVariants}
+                whileHover="hover"
+                className="p-4 bg-foreground/5 rounded-2xl shadow-sm border border-foreground/5"
               >
-                <Linkedin className="w-8 h-8" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-            </motion.div>
-          </div>
+                <Link
+                  href="https://www.linkedin.com/in/matheus-castro-araujo/"
+                  target="_blank"
+                  className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
+                >
+                  <Linkedin className="w-6 h-6" />
+                  <span className="text-xs">LinkedIn</span>
+                </Link>
+              </motion.div>
+
+              {/* Calendar booking option */}
+              <motion.div
+                variants={socialVariants}
+                whileHover="hover"
+                className="p-4 bg-foreground/5 rounded-2xl shadow-sm border border-foreground/5"
+              >
+                <Link
+                  href="#schedule-call"
+                  className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
+                >
+                  <Calendar className="w-6 h-6" />
+                  <span className="text-xs">Schedule</span>
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
-        <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <form className="space-y-6 p-8 bg-gradient-to-r from-foreground/10 to-foreground/20 rounded-3xl backdrop-blur-sm">
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-foreground/80">
-                Name
-              </label>
-              <Input
-                id="name"
-                placeholder="How should I call you?"
-                required
-                className="bg-foreground/5 border-none h-12 rounded-xl focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-foreground/80">
-                Email
-              </label>
-              <Input
-                id="email"
-                placeholder="Your best email"
-                required
-                type="email"
-                className="bg-foreground/5 border-none h-12 rounded-xl focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium text-foreground/80">
-                Message
-              </label>
-              <Textarea
-                className="min-h-[150px] bg-foreground/5 border-none rounded-xl focus:ring-2 focus:ring-primary resize-none"
-                id="message"
-                placeholder="How can I help you?"
-                required
-              />
-            </div>
-            <AnimatedButton
-              variant="apple"
-              label="Send Message"
-              href="#"
-              icon={<Send className="w-6 h-6" />}
-              className="w-full h-12 rounded-xl text-base font-medium bg-secondary hover:opacity-90 transition-opacity"
-            />
-         
-          </form>
+
+        {/* Right Column - Contact Form */}
+        <motion.div className="lg:col-span-3 relative" variants={itemVariants}>
+          <AnimatePresence mode="wait">
+            {formState === "success" ? (
+              <motion.div
+                key="success"
+                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm border border-foreground/10"
+                variants={formSuccessVariants}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                >
+                  <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  </div>
+                </motion.div>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Message Sent!
+                </h3>
+                <p className="text-center text-muted-foreground mb-4">
+                  Thank you for reaching out. I'll get back to you as soon as
+                  possible.
+                </p>
+                <motion.div
+                  className="flex gap-2 items-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <motion.div
+                      key={star}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5 + star * 0.1 }}
+                    >
+                      <Sparkles className="w-5 h-5 text-yellow-500" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                className="space-y-5 p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm shadow-sm border border-foreground/10 relative overflow-hidden"
+                variants={itemVariants}
+              >
+                <motion.div className="space-y-2" variants={itemVariants}>
+                  <label
+                    htmlFor="name"
+                    className="text-sm font-medium text-foreground/80 flex items-center"
+                  >
+                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="How should I call you?"
+                    required
+                    className="bg-foreground/5 border-foreground/10 h-12 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 transition-all duration-200"
+                  />
+                </motion.div>
+
+                <motion.div className="space-y-2" variants={itemVariants}>
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-medium text-foreground/80 flex items-center"
+                  >
+                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Your best email"
+                    required
+                    type="email"
+                    className="bg-foreground/5 border-foreground/10 h-12 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 transition-all duration-200"
+                  />
+                </motion.div>
+
+                {/* Project priority */}
+                <motion.div className="space-y-3" variants={itemVariants}>
+                  <label className="text-sm font-medium text-foreground/80 flex items-center">
+                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
+                    Project Priority
+                  </label>
+                  <RadioGroup
+                    defaultValue="normal"
+                    value={formData.priority}
+                    onValueChange={handleRadioChange}
+                    className="flex flex-wrap gap-2"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value="low"
+                        id="low"
+                        className="text-green-500"
+                      />
+                      <Label htmlFor="low" className="text-sm">
+                        Low Priority
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value="normal"
+                        id="normal"
+                        className="text-blue-500"
+                      />
+                      <Label htmlFor="normal" className="text-sm">
+                        Normal
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value="high"
+                        id="high"
+                        className="text-amber-500"
+                      />
+                      <Label htmlFor="high" className="text-sm">
+                        High Priority
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value="urgent"
+                        id="urgent"
+                        className="text-red-500"
+                      />
+                      <Label htmlFor="urgent" className="text-sm">
+                        Urgent
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </motion.div>
+
+                <motion.div className="space-y-2" variants={itemVariants}>
+                  <label
+                    htmlFor="message"
+                    className="text-sm font-medium text-foreground/80 flex items-center"
+                  >
+                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
+                    Message
+                  </label>
+                  <div className="relative">
+                    <Textarea
+                      className="min-h-[150px] bg-foreground/5 border-foreground/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 resize-none transition-all duration-200"
+                      id="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder={typingText || "..."}
+                      required
+                    />
+                    {/* Character count */}
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground">
+                      {formData.message.length} / 500
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div className="pt-2" variants={itemVariants}>
+                  <motion.button
+                    type="submit"
+                    disabled={formState === "submitting"}
+                    className="w-full h-12 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-2 relative overflow-hidden group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Button background animation */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary-foreground/20 to-primary/0"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Number.POSITIVE_INFINITY,
+                        repeatType: "loop",
+                      }}
+                    />
+
+                    {formState === "submitting" ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <Send className="w-5 h-5" />
+                    )}
+                    {formState === "submitting" ? "Sending..." : "Send Message"}
+                  </motion.button>
+                </motion.div>
+
+                {/* Privacy note */}
+                <motion.p
+                  className="text-xs text-center text-muted-foreground mt-4"
+                  variants={itemVariants}
+                >
+                  Your information is secure and will never be shared with third
+                  parties.
+                </motion.p>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </motion.div>
-      </div>
+      </motion.div>
     </SectionLayout>
-  )
+  );
 }

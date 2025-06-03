@@ -33,11 +33,11 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
           rel="noopener noreferrer"
           className={cn(
             "relative flex items-center gap-2 px-5 py-2.5 rounded-full",
-            "backdrop-blur-md bg-secondary/50 border border-border",
+            "backdrop-blur-3xl bg-secondary/90 border border-border",
             "text-foreground font-medium",
             "transition-all duration-300",
             "hover:bg-secondary hover:shadow-lg hover:shadow-secondary/20",
-            className // Include className in the Link component
+            className
           )}
         >
           {/* Icon with subtle glow effect */}
@@ -90,7 +90,7 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
             "text-primary-foreground font-medium",
             "transition-all duration-300",
             "hover:shadow-lg hover:shadow-primary/20",
-            className // Include className in the Link component
+            className 
           )}
         >
           {/* Icon with glow effect */}
@@ -133,7 +133,7 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
         rel="noopener noreferrer"
         className={cn(
           "flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium",
-          className // Include className in the Link component
+          className 
         )}
       >
         {icon}

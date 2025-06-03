@@ -9,38 +9,45 @@ html {
 
 @layer base {
   :root {
-    --background: 37 34% 13%;           /* #37360e - fundo escuro oliva */
-    --foreground: 38 63% 55%;           /* #d58c3f - laranja queimado */
-    --card: 37 34% 13%;
-    --card-foreground: 38 63% 55%;
-    --popover: 37 34% 13%;
-    --popover-foreground: 38 63% 55%;
-    --primary: 27 65% 26%;              /* #5b3310 - marrom avermelhado */
-    --primary-foreground: 38 63% 55%;
-    --secondary: 45 10% 28%;            /* #454a3c - cinza esverdeado escuro */
-    --secondary-foreground: 38 63% 55%;
-    --muted: 45 10% 28%;
-    --muted-foreground: 38 30% 50%;     /* tom mais neutro de laranja queimado */
-    --accent: 38 63% 55%;               /* #d58c3f - destaque */
-    --accent-foreground: 37 34% 13%;
-    --destructive: 15 60% 20%;          /* tom escuro de vermelho/marrom */
-    --destructive-foreground: 38 63% 55%;
-    --border: 32 20% 20%;               /* #231e0e - muito escuro */
-    --input: 32 20% 20%;
+    --background: 45 40% 84%; /* fundo bege claro */
+    --foreground: 32 40% 25%; /* marrom escuro suave para texto */
+    --card: 45 40% 94%;
+    --card-foreground: 32 40% 25%;
+    --popover: 45 40% 94%;
+    --popover-foreground: 32 40% 25%;
+
+    --primary: 38 63% 55%; /* laranja queimado original como botão principal */
+    --primary-foreground: 45 40% 94%; /* fundo claro para texto branco */
+
+    --secondary: 112 25% 76%; /* cinza esverdeado bem claro */
+    --secondary-foreground: 32 40% 25%;
+
+    --muted: 45 20% 85%; /* fundo quase branco com leve esverdeado */
+    --muted-foreground: 38 30% 35%; /* laranja queimado suavizado */
+
+    --accent: 38 63% 55%; /* destaque com o mesmo laranja queimado */
+    --accent-foreground: 45 40% 94%;
+
+    --destructive: 15 80% 35%; /* vermelho queimado claro */
+    --destructive-foreground: 45 40% 94%;
+
+    --border: 32 20% 80%; /* bordas em marrom bem claro */
+    --input: 32 20% 85%;
     --ring: 38 63% 55%;
+
     --radius: 2rem;
 
-    /* Cores para gráficos - tom sobre tom */
-    --chart-1: 38 63% 55%;  /* #d58c3f */
-    --chart-2: 27 65% 26%;  /* #5b3310 */
-    --chart-3: 32 20% 20%;  /* #231e0e */
-    --chart-4: 45 10% 28%;  /* #454a3c */
-    --chart-5: 37 34% 13%;  /* #37360e */
+    /* Cores para gráficos - versão clara */
+    --chart-1: 38 63% 55%; /* #d58c3f */
+    --chart-2: 27 65% 46%; /* tom médio do marrom avermelhado */
+    --chart-3: 32 20% 60%; /* marrom oliva claro */
+    --chart-4: 45 10% 70%; /* cinza esverdeado claro */
+    --chart-5: 37 34% 45%; /* oliva médio */
   }
 
   .dark {
-    --background: 32 20% 10%;          /* ainda mais escuro para o modo dark */
-    --foreground: 38 63% 55%;          /* continua com destaque quente */
+    --background: 32 20% 10%; /* ainda mais escuro para o modo dark */
+    --foreground: 38 63% 55%; /* continua com destaque quente */
     --card: 32 20% 10%;
     --card-foreground: 38 63% 55%;
     --popover: 32 20% 10%;

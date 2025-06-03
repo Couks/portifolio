@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { ReactNode } from "react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface SectionLayoutProps {
-  id: string
-  title: string
-  subtitle?: string
-  children: ReactNode
-  className?: string
-  titleClassName?: string
-  subtitleClassName?: string
-  contentClassName?: string
+  id: string;
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+  className?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  contentClassName?: string;
 }
 
 export default function SectionLayout({
@@ -25,8 +25,6 @@ export default function SectionLayout({
   subtitleClassName,
   contentClassName,
 }: SectionLayoutProps) {
-
-
   return (
     <section
       id={id}
@@ -44,14 +42,15 @@ export default function SectionLayout({
         <div className="absolute inset-0 bg-background" />
 
         {/* Blurred circles - subtle iOS style */}
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-purple-500/10 blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-purple-500/10 blur-[120px] translate-x-1/2 translate-y-1/2" />
-        <div className="absolute top-1/2 left-1/2 w-56 h-56 md:w-64 md:h-64 rounded-full bg-purple-500/10 blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-primary/10 blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-primary/10 blur-[120px] translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 w-56 h-56 md:w-64 md:h-64 rounded-full bg-primary/10 blur-[100px] -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
 
-      <motion.div 
-      // style={{ opacity, scale, y }} 
-      className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <motion.div
+        // style={{ opacity, scale, y }}
+        className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl"
+      >
         {/* Section header - consistent across all sections */}
         {(title || subtitle) && (
           <div className="text-center mb-16">
@@ -85,10 +84,8 @@ export default function SectionLayout({
         )}
 
         {/* Section content */}
-        <div className={cn("w-full", contentClassName)}>
-          {children}
-        </div>
+        <div className={cn("w-full", contentClassName)}>{children}</div>
       </motion.div>
     </section>
-  )
+  );
 }

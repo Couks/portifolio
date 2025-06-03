@@ -29,6 +29,7 @@ export default function Hero() {
               <Image
                 src={linkedin || "/placeholder.svg"}
                 alt="Matheus Castro"
+                unoptimized
                 fill
                 priority
                 sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
