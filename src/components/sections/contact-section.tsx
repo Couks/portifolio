@@ -104,15 +104,41 @@ export default function Contact() {
     e.preventDefault();
     setFormState("submitting");
 
-    // Simulate form submission
-    setTimeout(() => {
-      setFormState("success");
-      // Reset form after 3 seconds
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subject: `New Contact Form Submission - ${formData.priority} Priority`,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          priority: formData.priority,
+        }),
+      });
+
+      if (response.ok) {
+        setFormState("success");
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setFormState("idle");
+          setFormData({ name: "", email: "", message: "", priority: "normal" });
+        }, 3000);
+      } else {
+        setFormState("error");
+        setTimeout(() => {
+          setFormState("idle");
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setFormState("error");
       setTimeout(() => {
         setFormState("idle");
-        setFormData({ name: "", email: "", message: "", priority: "normal" });
       }, 3000);
-    }, 1500);
+    }
   };
 
   // Animation variants
@@ -195,7 +221,7 @@ export default function Contact() {
         decorativeElements.map((el, i) => (
           <motion.div
             key={i}
-            className="absolute z-10 text-primary/30 hidden md:block"
+            className="absolute z-50 text-primary/30 hidden md:block"
             style={{
               top: el.top || "auto",
               left: el.left || "auto",
@@ -313,7 +339,7 @@ export default function Contact() {
                 className="p-4 bg-foreground/5 rounded-2xl shadow-sm border border-foreground/5"
               >
                 <Link
-                  href="https://github.com/Couks"
+                  href="https://github.com/Couks"       
                   target="_blank"
                   className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
                 >
@@ -400,6 +426,31 @@ export default function Contact() {
                     </motion.div>
                   ))}
                 </motion.div>
+              </motion.div>
+            ) : formState === "error" ? (
+              <motion.div
+                key="error"
+                className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-3xl backdrop-blur-sm border border-foreground/10"
+                variants={formSuccessVariants}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                >
+                  <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mb-4">
+                    <Mail className="w-10 h-10 text-red-500" />
+                  </div>
+                </motion.div>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Error Sending Message
+                </h3>
+                <p className="text-center text-muted-foreground mb-4">
+                  Sorry, something went wrong. Please try again or send an email directly.
+                </p>
               </motion.div>
             ) : (
               <motion.form
@@ -528,7 +579,7 @@ export default function Contact() {
                   <motion.button
                     type="submit"
                     disabled={formState === "submitting"}
-                    className="w-full h-12 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-2 relative overflow-hidden group"
+                    className="w-full h-12 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-2 relative overflow-hidden group disabled:opacity-50"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
