@@ -7,17 +7,14 @@ import { ExternalLink } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  Navigation,
-  Pagination,
-  A11y,
-  Keyboard,
-  Autoplay,
-  EffectCards,
+
+  EffectCoverflow,
 } from "swiper/modules";
 import { cn } from "@/lib/utils";
-import ebenerTKD from "@/assets/ebenertkd.png";
+import ebenerTKD from "@/assets/ebener-tkd.png";
 import whatsYourFinances from "@/assets/whats-your-finances.png";
-import WebAppSecurity from "@/assets/web-app-security.png";
+import devTips from "@/assets/dev-tips.png";
+import pdc from "@/assets/PDC.png";
 import placeholder from "@/assets/placeholder.png";
 import AnimatedButton from "../animated-button";
 import SectionLayout from "../section-layout";
@@ -26,7 +23,7 @@ import SectionLayout from "../section-layout";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/effect-cards";
+import "swiper/css/effect-coverflow";
 
 const projects = [
   {
@@ -64,15 +61,24 @@ const projects = [
     image: whatsYourFinances,
   },
   {
-    title: "Authentication API",
+    title: "Dev Tips",
     description:
-      "API focused on secure user authentication, featuring account creation, login, SQL injection prevention, two-factor authentication via SMS, and encrypted passwords.",
-    technologies: ["NestJS", "Express", "PostgreSQL", "JWT", "Swagger"],
+      "A mobile application to help developers with daily programming tips. Features daily tips, language filtering, programming challenges tracking, and user profile with progress statistics.",
+    technologies: ["React Native", "Expo", "React Navigation", "AsyncStorage", "TypeScript"],
     links: [
-      { link: "https://frontend-av2-4seg.vercel.app/", text: "Application" },
-      { link: "https://backend-av2-4seg.onrender.com/api/docs", text: "Docs" },
+      { link: "https://github.com/Couks/dev-tips", text: "View Repository" },
     ],
-    image: WebAppSecurity,
+    image: devTips,
+  },
+  {
+    title: "PDC",
+    description:
+      "A mobile application developed in React Native and Expo for secure management of digital medical records. Features dedicated areas for doctors and patients.",
+    technologies: ["React Native", "Expo", "TypeScript", "React Navigation", "AsyncStorage"],
+    links: [
+      { link: "https://github.com/Couks/pdc", text: "View Repository" },
+    ],
+    image: pdc, 
   },
 ];
 
@@ -154,37 +160,32 @@ export function ProjectsSection() {
           className="w-full mx-auto"
         >
           <Swiper
-            modules={[
-              Navigation,
-              Pagination,
-              A11y,
-              EffectCards,
-              Keyboard,
-              Autoplay,
-            ]}
+            modules={[ EffectCoverflow ]}
             spaceBetween={30}
             slidesPerView={1}
-            pagination={{
-              clickable: true,
-              type: "custom",
+            centeredSlides={true}
+            loop={true}
+            effect="coverflow"
+            coverflowEffect={{
+              rotate: 20,
+              stretch: 0,
+              depth: 300,
+              modifier: 1,
+              slideShadows: false,
             }}
-            keyboard={{ enabled: true }}
-            effect={shouldReduceMotion ? "slide" : "cards"}
-            speed={shouldReduceMotion ? 0 : 1200}
+            
             autoplay={{
               delay: 3500,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-         
-            loop={true}
-            className="h-full w-full projects-swiper"
+            className="projects-swiper"
             onSlideChange={(swiper) => setActiveProject(swiper.realIndex)}
           >
             {projects.map((project, index) => (
               <SwiperSlide
                 key={index}
-                className="flex items-center justify-center p-4"
+                className="flex items-center justify-center p-4 md:p-8 overflow-visible w-full max-w-8xl"
               >
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
@@ -203,157 +204,151 @@ export function ProjectsSection() {
                     rotateX: 2,
                     transition: { duration: 0.3 }
                   }}
+                  className="w-full"
                 >
                   <Card className={cn(
-                    "w-full max-w-8xl h-auto overflow-hidden rounded-2xl border shadow-lg transition-all duration-500",
-                    "bg-card/95 backdrop-blur-sm border-border",
-                    activeProject === index ? "ring-2 ring-primary shadow-2xl" : ""
+                    "w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border shadow-lg transition-all duration-500",
+                    "bg-card backdrop-blur-sm border-border",
+                    activeProject === index ? "ring-2 ring-primary/30 shadow-xl shadow-primary/10" : ""
                   )}>
-                    <div className="md:grid md:grid-cols-2 h-full">
-                      {/* Project Image */}
-                      <div className="relative h-80 md:h-full overflow-hidden">
+                    <div className="flex flex-col md:grid md:grid-cols-5 h-full">
+                      {/* Project Image - Responsive sizing */}
+                      <div className="relative h-48 sm:h-56 md:h-full md:col-span-2 overflow-hidden">
                         <motion.div
                           whileHover={shouldReduceMotion ? {} : { 
-                            scale: 1.1,
-                            rotate: 1
+                            scale: 1.05,
+                            rotate: 0.5
                           }}
                           transition={{ duration: 0.5, ease: "easeOut" }}
                           className="w-full h-full"
                         >
                           <Image
                             src={project.image || placeholder}
-                            alt={`Image of the project ${project.title}`}
+                            alt={`${project.title} project screenshot`}
                             fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
+                            sizes="(max-width: 768px) 100vw, 40vw"
                             priority
-                            className="object-cover object-top md:object-left-top transition-all duration-700"
+                            className="object-cover object-top transition-all duration-700"
                           />
                         </motion.div>
-                        {/* Overlay gradient for better text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/20" />
+                        {/* Subtle overlay for depth */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-black/10" />
                       </div>
 
-                      {/* Project Content */}
-                      <div className="p-6 md:p-8 flex flex-col justify-between overflow-y-auto max-h-[50vh] md:max-h-[70vh]">
-                        <div>
+                      {/* Project Content - Expanded space */}
+                      <div className="p-5 sm:p-6 md:p-7 md:col-span-3 flex flex-col h-full">
+                        {/* Header Section */}
+                        <div className="mb-4">
                           <motion.h3 
-                            initial={{ opacity: 0, x: -30, rotateX: 10 }}
-                            animate={{ opacity: 1, x: 0, rotateX: 0 }}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
                             transition={{ 
                               delay: 0.2,
                               type: "spring",
                               stiffness: 200,
                               damping: 20
                             }}
-                            className="font-bold text-2xl md:text-3xl text-foreground mb-4"
+                            className="font-bold text-xl sm:text-2xl md:text-3xl text-foreground mb-3 line-clamp-2"
                           >
                             {project.title}
                           </motion.h3>
+                          
                           <motion.p 
-                            initial={{ opacity: 0, x: -30, rotateX: 10 }}
-                            animate={{ opacity: 1, x: 0, rotateX: 0 }}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
                             transition={{ 
                               delay: 0.3,
                               type: "spring",
                               stiffness: 200,
                               damping: 20
                             }}
-                            className="text-muted-foreground mb-6 leading-relaxed"
+                            className="text-muted-foreground text-sm sm:text-base leading-relaxed line-clamp-3 md:line-clamp-4"
                           >
                             {project.description}
                           </motion.p>
-
-                          {/* Technologies */}
-                          <motion.div 
-                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ 
-                              delay: 0.4,
-                              type: "spring",
-                              stiffness: 200,
-                              damping: 20
-                            }}
-                            className="mb-6"
-                          >
-                            <h4 className="text-md font-semibold text-foreground mb-3 flex items-center">
-                              <motion.span 
-                                className="inline-block w-1 h-4 bg-primary rounded-full mr-2"
-                                animate={{
-                                  scale: [1, 1.2, 1],
-                                  opacity: [1, 0.7, 1],
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  repeatType: "reverse",
-                                }}
-                              />
-                              Technologies
-                            </h4>
-                            <motion.div 
-                              className="flex flex-wrap gap-2"
-                              variants={{
-                                hidden: {},
-                                visible: {
-                                  transition: {
-                                    staggerChildren: 0.08,
-                                  },
-                                },
-                              }}
-                              initial="hidden"
-                              animate="visible"
-                            >
-                              {project.technologies.filter(Boolean).map((tech, i) => (
-                                <motion.span
-                                  key={i}
-                                  variants={techVariants}
-                                  whileHover={shouldReduceMotion ? {} : {
-                                    scale: 1.1,
-                                    y: -2,
-                                    rotateZ: 2,
-                                    transition: { duration: 0.2 },
-                                  }}
-                                  animate={shouldReduceMotion ? {} : {
-                                    y: [0, -2, 0],
-                                  }}
-                                  transition={shouldReduceMotion ? {} : {
-                                    duration: 2 + i * 0.2,
-                                    repeat: Infinity,
-                                    repeatType: "reverse",
-                                    delay: i * 0.1,
-                                  }}
-                                  className={cn(
-                                    "inline-block px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300",
-                                    "bg-secondary/80 backdrop-blur-sm border border-border text-foreground",
-                                    "hover:bg-accent hover:shadow-md hover:border-primary"
-                                  )}
-                                >
-                                  {tech}
-                                </motion.span>
-                              ))}
-                            </motion.div>
-                          </motion.div>
                         </div>
 
-                        {/* Project Links */}
+                        {/* Technologies Section - Optimized spacing */}
                         <motion.div 
-                          initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ 
+                            delay: 0.4,
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 20
+                          }}
+                          className="flex-1 mb-5"
+                        >
+                          <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center">
+                            <motion.span 
+                              className="inline-block w-1 h-3 bg-primary rounded-full mr-2"
+                              animate={shouldReduceMotion ? {} : {
+                                scale: [1, 1.2, 1],
+                                opacity: [1, 0.7, 1],
+                              }}
+                              transition={shouldReduceMotion ? {} : {
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                              }}
+                            />
+                            Technologies
+                          </h4>
+                          
+                          <motion.div 
+                            className="flex flex-wrap gap-1.5 sm:gap-2"
+                            variants={{
+                              hidden: {},
+                              visible: {
+                                transition: {
+                                  staggerChildren: 0.08,
+                                },
+                              },
+                            }}
+                            initial="hidden"
+                            animate="visible"
+                          >
+                            {project.technologies.filter(Boolean).map((tech, i) => (
+                              <motion.span
+                                key={i}
+                                variants={techVariants}
+                                whileHover={shouldReduceMotion ? {} : {
+                                  scale: 1.05,
+                                  y: -1,
+                                  transition: { duration: 0.2 },
+                                }}
+                                className={cn(
+                                  "inline-block px-2.5 py-1 text-xs sm:text-sm font-medium rounded-lg transition-all duration-300",
+                                  "bg-secondary/80 backdrop-blur-sm border border-border text-foreground",
+                                  "hover:bg-accent hover:shadow-sm hover:border-primary/50"
+                                )}
+                              >
+                                {tech}
+                              </motion.span>
+                            ))}
+                          </motion.div>
+                        </motion.div>
+
+                        {/* Project Links - Sticky bottom */}
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{ 
                             delay: 0.5,
                             type: "spring",
                             stiffness: 200,
                             damping: 20
                           }}
-                          className="mt-auto"
+                          className="mt-auto pt-2"
                         >
                           {project.links && (
-                            <div className="flex flex-wrap gap-4">
+                            <div className="flex flex-wrap gap-3">
                               {project.links.map((link, linkIndex) => (
                                 <AnimatedButton
                                   key={linkIndex}
                                   href={link.link}
-                                  icon={<ExternalLink className="w-4 h-4" />}
+                                  icon={<ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                                   label={link.text}
                                   variant="apple"
                                 />
@@ -392,6 +387,12 @@ export function ProjectsSection() {
           />
         </motion.div>
       </motion.div>
+
+      <style jsx global>{`
+        .projects-swiper {
+          overflow: visible;
+        }
+      `}</style>
     </SectionLayout>
   );
 }

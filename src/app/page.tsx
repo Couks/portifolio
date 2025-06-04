@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className=" min-h-screen flex flex-col text-black dark:text-white bg-grid-pattern bg-[length:150px_150px] bg-repeat">
+      <div className=" min-h-screen flex flex-col text-black dark:text-white bg-grid-pattern bg-[length:151px_151px] bg-repeat">
         <Hero />
         <TechSection />
         <ProjectsSection />

@@ -166,7 +166,7 @@ export default function Hero() {
                 />
                 <AnimatedText
                   text="React • Next.js • TypeScript • React Native"
-                  className="text-sm md:text-base text-muted-fo font-medium mt-3"
+                  className="text-sm md:text-base text-foreground dark:text-primary font-medium mt-3"
                 />
               </div>
 

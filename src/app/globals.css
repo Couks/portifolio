@@ -9,7 +9,7 @@ html {
 
 @layer base {
   :root {
-    --background: 45 15% 92%; /* fundo claro, um pouco escurecido */
+    --background: 45 15% 60%; /* fundo claro mais escurecido */
     --foreground: 32 40% 15%; /* texto escuro para bom contraste */
     --card: 45 15% 98%; /* cards ligeiramente mais claros que o fundo */
     --card-foreground: 32 40% 15%;

@@ -30,6 +30,7 @@ import {
   SiGoogleplay,
   SiEsbuild,
   SiGoogleauthenticator,
+  SiFramer,
 } from "react-icons/si"
 import { FaNode, FaGitAlt } from "react-icons/fa"
 import { TbApi } from "react-icons/tb"
@@ -49,6 +50,7 @@ const categories = [
       { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
       { name: "Redux", icon: SiRedux, color: "text-[#764ABC]" },
       { name: "Vite", icon: SiVite, color: "text-[#646CFF]" },
+      { name: "Framer Motion", icon: SiFramer, color: "text-[#0055FF]" },
       { name: "ShadCN UI", icon: SiTailwindcss, color: "text-foreground" },
     ],
   },

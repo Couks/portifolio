@@ -257,7 +257,7 @@ export default function Contact() {
         <motion.div className="space-y-8 lg:col-span-2" variants={itemVariants}>
           {/* Personal touch - Avatar and greeting */}
           <motion.div
-            className="flex flex-col items-center lg:items-start gap-4 mb-6"
+            className="flex flex-col items-center lg:items-start gap-4 mb-6 hidden md:block"
             variants={itemVariants}
           >
             <div className="text-center lg:text-left">
@@ -268,7 +268,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          <motion.div className="space-y-6" variants={itemVariants}>
+          <motion.div className="space-y-6 hidden md:block" variants={itemVariants}>
             <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
               Contact Information
@@ -327,7 +327,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          <motion.div className="space-y-4" variants={itemVariants}>
+          <motion.div className="space-y-4 hidden md:block" variants={itemVariants}>
             <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
               Connect
@@ -462,7 +462,7 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="name"
-                    className="text-sm font-medium text-foreground/80 flex items-center"
+                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
                     Name
@@ -480,7 +480,7 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="email"
-                    className="text-sm font-medium text-foreground/80 flex items-center"
+                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
                     Email
@@ -498,7 +498,7 @@ export default function Contact() {
 
                 {/* Project priority */}
                 <motion.div className="space-y-3" variants={itemVariants}>
-                  <label className="text-sm font-medium text-foreground/80 flex items-center">
+                  <label className="text-sm font-medium text-foreground/80 flex items-center hidden md:block">
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
                     Project Priority
                   </label>
@@ -554,7 +554,7 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="message"
-                    className="text-sm font-medium text-foreground/80 flex items-center"
+                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
                     Message

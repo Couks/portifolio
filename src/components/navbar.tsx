@@ -12,7 +12,6 @@ import {
   Phone,
   Menu,
   X,
-  Languages,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -42,56 +41,6 @@ interface NavItemProps {
   isMobile?: boolean;
   showLabels?: boolean;
 }
-
-// Google Translate Button Component
-const GoogleTranslateButton = React.memo(function GoogleTranslateButton({ 
-  isMobile = false 
-}: { isMobile?: boolean }) {
-  const prefersReducedMotion = useReducedMotion();
-
-  const handleTranslate = useCallback(() => {
-    const currentUrl = window.location.href;
-    const translateUrl = `https://translate.google.com/translate?sl=en&tl=pt&u=${encodeURIComponent(currentUrl)}`;
-    window.open(translateUrl, '_blank');
-  }, []);
-
-  return (
-    <motion.button
-      onClick={handleTranslate}
-      className={cn(
-        "group flex items-center transition-colors duration-200",
-        isMobile
-          ? "px-4 py-3 text-base justify-start w-full rounded-xl hover:bg-foreground/10"
-          : "p-3 justify-center rounded-full hover:bg-foreground/10"
-      )}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-      whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
-      title="Translate to Portuguese"
-    >
-      <motion.div
-        className="flex items-center justify-center text-foreground"
-        animate={prefersReducedMotion ? {} : {
-          rotate: [0, 10, -10, 0]
-        }}
-        transition={{
-          duration: 0.6,
-          ease: "easeInOut"
-        }}
-        whileHover={prefersReducedMotion ? {} : {
-          rotate: [0, 10, -10, 0]
-        }}
-      >
-        <Languages className="w-4 h-4" />
-      </motion.div>
-
-      {isMobile && (
-        <span className="ml-2 text-sm font-medium text-foreground">
-          Translate to PT
-        </span>
-      )}
-    </motion.button>
-  );
-});
 
 // Memoized NavItem component to prevent unnecessary re-renders
 const NavItem = React.memo(function NavItem({
@@ -355,10 +304,7 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
         />
 
         <motion.div 
-          className={cn(
-            "flex items-center transition-all duration-300",
-            showLabels ? "flex-row gap-2" : "flex-col gap-2"
-          )}
+          className="flex items-center justify-center"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -370,7 +316,6 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
           }}
         >
           <ThemeToggle />
-          <GoogleTranslateButton />
         </motion.div>
       </motion.div>
     </motion.div>
@@ -541,7 +486,7 @@ const MobileNavbar = React.memo(function MobileNavbar({
                 Navigation
               </motion.h3>
               <motion.div
-                className="flex items-center gap-2"
+                className="flex items-center"
                 initial={{ opacity: 0, rotate: -180 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 transition={{
@@ -552,7 +497,6 @@ const MobileNavbar = React.memo(function MobileNavbar({
                 }}
               >
                 <ThemeToggle />
-                <GoogleTranslateButton isMobile={false} />
               </motion.div>
             </motion.div>
 
@@ -601,38 +545,6 @@ const MobileNavbar = React.memo(function MobileNavbar({
                   />
                 </motion.div>
               ))}
-
-              <motion.div 
-                className="my-2 w-full h-px bg-border/50"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: 0.5,
-                  duration: prefersReducedMotion ? 0.1 : 0.3,
-                  ease: "easeOut"
-                }}
-              />
-
-              <motion.div
-                variants={{
-                  hidden: { 
-                    opacity: 0, 
-                    y: 20
-                  },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 30,
-                      delay: 0.6
-                    }
-                  }
-                }}
-              >
-                <GoogleTranslateButton isMobile={true} />
-              </motion.div>
             </motion.div>
           </motion.div>
         )}

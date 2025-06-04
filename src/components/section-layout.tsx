@@ -53,7 +53,7 @@ export default function SectionLayout({
       >
         {/* Section header - consistent across all sections */}
         {(title || subtitle) && (
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             {title && (
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
