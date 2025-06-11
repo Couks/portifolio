@@ -9,40 +9,40 @@ html {
 
 @layer base {
   :root {
-    --background: 45 15% 60%; /* fundo claro mais escurecido */
-    --foreground: 32 40% 15%; /* texto escuro para bom contraste */
-    --card: 45 15% 98%; /* cards ligeiramente mais claros que o fundo */
-    --card-foreground: 32 40% 15%;
-    --popover: 45 15% 98%;
-    --popover-foreground: 32 40% 15%;
+    --background: 0 0% 98%; /* fundo muito claro para modo claro */
+    --foreground: 32 40% 8%; /* texto bem escuro para máximo contraste */
+    --card: 0 0% 100%; /* cards brancos */
+    --card-foreground: 32 40% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 32 40% 8%;
 
-    --primary: 38 63% 55%; /* mantém o laranja queimado como cor principal */
-    --primary-foreground: 45 15% 98%; /* texto claro sobre o primário */
+    --primary: 38 63% 45%; /* laranja queimado mais escuro para melhor contraste */
+    --primary-foreground: 0 0% 98%; /* texto claro sobre o primário */
 
-    --secondary: 45 10% 90%; /* cinza muito claro para elementos secundários */
-    --secondary-foreground: 32 40% 20%;
+    --secondary: 0 0% 92%; /* cinza muito claro para elementos secundários */
+    --secondary-foreground: 32 40% 12%;
 
-    --muted: 45 8% 92%; /* fundo sutil para elementos silenciados */
-    --muted-foreground: 32 25% 45%; /* texto médio para elementos silenciados */
+    --muted: 0 0% 94%; /* fundo sutil para elementos silenciados */
+    --muted-foreground: 32 25% 35%; /* texto médio com melhor contraste */
 
-    --accent: 38 63% 55%; /* mantém consistência com o primário */
-    --accent-foreground: 45 15% 98%;
+    --accent: 38 63% 45%; /* mantém consistência com o primário */
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 70% 50%; /* vermelho mais vibrante para modo claro */
-    --destructive-foreground: 45 15% 98%;
+    --destructive: 0 70% 45%; /* vermelho com bom contraste */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 32 15% 85%; /* bordas suaves */
-    --input: 32 15% 88%; /* inputs ligeiramente mais escuros que o fundo */
-    --ring: 38 63% 55%; /* mantém consistência com primário */
+    --border: 32 15% 80%; /* bordas mais visíveis */
+    --input: 0 0% 96%; /* inputs com leve diferenciação do fundo */
+    --ring: 38 63% 45%; /* mantém consistência com primário */
 
     --radius: 2rem;
 
     /* Cores para gráficos - versão clara otimizada */
-    --chart-1: 38 63% 55%; /* laranja queimado principal */
-    --chart-2: 27 55% 50%; /* marrom avermelhado */
-    --chart-3: 32 35% 65%; /* marrom claro */
-    --chart-4: 45 25% 75%; /* cinza esverdeado */
-    --chart-5: 37 45% 60%; /* oliva médio */
+    --chart-1: 38 63% 45%; /* laranja queimado principal */
+    --chart-2: 27 55% 40%; /* marrom avermelhado */
+    --chart-3: 32 35% 50%; /* marrom claro */
+    --chart-4: 45 25% 55%; /* cinza esverdeado */
+    --chart-5: 37 45% 45%; /* oliva médio */
   }
 
   .dark {

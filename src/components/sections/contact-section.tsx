@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   motion,
   AnimatePresence,
@@ -30,8 +30,10 @@ import Link from "next/link";
 import SectionLayout from "../section-layout";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export default function Contact() {
+  const { contact } = useTranslation();
   const [formState, setFormState] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -47,15 +49,15 @@ export default function Contact() {
   const [typingText, setTypingText] = useState("");
   const [typingIndex, setTypingIndex] = useState(0);
 
+  const messagePlaceholders = useMemo(() => [
+    contact('form.placeholders.message1'),
+    contact('form.placeholders.message2'),
+    contact('form.placeholders.message3'),
+    contact('form.placeholders.message4'),
+  ], [contact]);
+
   // Typing animation effect
   useEffect(() => {
-    const messagePlaceholders = [
-      "I'd love to discuss your project ideas...",
-      "Tell me about the challenges you're facing...",
-      "Looking for a collaboration opportunity?",
-      "Need help with your next web project?",
-    ];
-
     const currentMessage = messagePlaceholders[currentPlaceholder];
 
     if (typingIndex < currentMessage.length) {
@@ -74,7 +76,7 @@ export default function Contact() {
       }, 3000);
       return () => clearTimeout(timeout);
     }
-  }, [typingIndex, currentPlaceholder]);
+  }, [typingIndex, currentPlaceholder, messagePlaceholders]);
 
   // Floating animation
   useEffect(() => {
@@ -213,8 +215,8 @@ export default function Contact() {
   return (
     <SectionLayout
       id="contact"
-      title="Let's Create Something Amazing Together"
-      subtitle="Have a project in mind? I'm always excited to hear new ideas and challenges!"
+      title={contact('title')}
+      subtitle={contact('subtitle')}
     >
       {/* Decorative floating elements */}
       {!prefersReducedMotion &&
@@ -257,21 +259,21 @@ export default function Contact() {
         <motion.div className="space-y-8 lg:col-span-2" variants={itemVariants}>
           {/* Personal touch - Avatar and greeting */}
           <motion.div
-            className="flex flex-col items-center lg:items-start gap-4 mb-6 hidden md:block"
+            className="flex-col items-center lg:items-start gap-4 mb-6 hidden md:flex"
             variants={itemVariants}
           >
             <div className="text-center lg:text-left">
-              <h3 className="text-xl font-bold">Hey there! 👋</h3>
-              <p className="text-muted-foreground">
-                Currently available for new projects
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold">{contact('greeting.title')}</h3>
+              <p className="text-base md:text-lg text-muted-foreground">
+                {contact('greeting.available')}
               </p>
             </div>
           </motion.div>
 
           <motion.div className="space-y-6 hidden md:block" variants={itemVariants}>
-            <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
-              Contact Information
+              {contact('info.title')}
             </h3>
 
             <motion.div
@@ -283,10 +285,10 @@ export default function Contact() {
                 <Mail className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Email</p>
+                <p className="text-sm text-muted-foreground">{contact('info.email')}</p>
                 <a
                   href="mailto:matheuscastroks@gmail.com"
-                  className="text-base font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-base md:text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   matheuscastroks@gmail.com
                 </a>
@@ -302,8 +304,8 @@ export default function Contact() {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Location</p>
-                <span className="text-base font-medium text-foreground">
+                <p className="text-sm text-muted-foreground">{contact('info.location')}</p>
+                <span className="text-base md:text-lg font-medium text-foreground">
                   Rio de Janeiro, RJ
                 </span>
               </div>
@@ -319,18 +321,18 @@ export default function Contact() {
                 <Clock className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Availability</p>
-                <span className="text-base font-medium text-foreground">
-                  Response within 24-48 hours
+                <p className="text-sm text-muted-foreground">{contact('info.availability')}</p>
+                <span className="text-base md:text-lg font-medium text-foreground">
+                  {contact('info.response')}
                 </span>
               </div>
             </motion.div>
           </motion.div>
 
           <motion.div className="space-y-4 hidden md:block" variants={itemVariants}>
-            <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
-              Connect
+              {contact('connect.title')}
             </h3>
             <div className="flex space-x-4">
               <motion.div
@@ -344,7 +346,7 @@ export default function Contact() {
                   className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
                 >
                   <Github className="w-6 h-6" />
-                  <span className="text-xs">GitHub</span>
+                  <span className="text-xs">{contact('connect.github')}</span>
                 </Link>
               </motion.div>
 
@@ -359,7 +361,7 @@ export default function Contact() {
                   className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
                 >
                   <Linkedin className="w-6 h-6" />
-                  <span className="text-xs">LinkedIn</span>
+                  <span className="text-xs">{contact('connect.linkedin')}</span>
                 </Link>
               </motion.div>
 
@@ -374,7 +376,7 @@ export default function Contact() {
                   className="text-foreground/80 hover:text-primary transition-colors flex flex-col items-center gap-2"
                 >
                   <Calendar className="w-6 h-6" />
-                  <span className="text-xs">Schedule</span>
+                  <span className="text-xs">{contact('connect.schedule')}</span>
                 </Link>
               </motion.div>
             </div>
@@ -402,12 +404,11 @@ export default function Contact() {
                     <CheckCircle2 className="w-10 h-10 text-green-500" />
                   </div>
                 </motion.div>
-                <h3 className="text-xl font-bold text-foreground mb-2">
-                  Message Sent!
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2">
+                  {contact('success.title')}
                 </h3>
-                <p className="text-center text-muted-foreground mb-4">
-                  Thank you for reaching out. I&apos;ll get back to you as soon as
-                  possible.
+                <p className="text-center text-base md:text-lg text-muted-foreground mb-4">
+                  {contact('success.description')}
                 </p>
                 <motion.div
                   className="flex gap-2 items-center"
@@ -445,11 +446,11 @@ export default function Contact() {
                     <Mail className="w-10 h-10 text-red-500" />
                   </div>
                 </motion.div>
-                <h3 className="text-xl font-bold text-foreground mb-2">
-                  Error Sending Message
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2">
+                  {contact('error.title')}
                 </h3>
-                <p className="text-center text-muted-foreground mb-4">
-                  Sorry, something went wrong. Please try again or send an email directly.
+                <p className="text-center text-base md:text-lg text-muted-foreground mb-4">
+                  {contact('error.description')}
                 </p>
               </motion.div>
             ) : (
@@ -462,16 +463,16 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="name"
-                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
+                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    Name
+                    {contact('form.name')}
                   </label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="How should I call you?"
+                    placeholder={contact('form.placeholders.name')}
                     required
                     className="bg-foreground/5 border-foreground/10 h-12 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 transition-all duration-200"
                   />
@@ -480,16 +481,16 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="email"
-                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
+                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    Email
+                    {contact('form.email')}
                   </label>
                   <Input
                     id="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="Your best email"
+                    placeholder={contact('form.placeholders.email')}
                     required
                     type="email"
                     className="bg-foreground/5 border-foreground/10 h-12 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 transition-all duration-200"
@@ -498,9 +499,9 @@ export default function Contact() {
 
                 {/* Project priority */}
                 <motion.div className="space-y-3" variants={itemVariants}>
-                  <label className="text-sm font-medium text-foreground/80 flex items-center hidden md:block">
+                  <label className="text-sm font-medium text-foreground/80 items-center hidden md:flex">
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    Project Priority
+                    {contact('form.priority')}
                   </label>
                   <RadioGroup
                     defaultValue="normal"
@@ -515,7 +516,7 @@ export default function Contact() {
                         className="text-green-500"
                       />
                       <Label htmlFor="low" className="text-sm">
-                        Low Priority
+                        {contact('form.priorities.low')}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -525,7 +526,7 @@ export default function Contact() {
                         className="text-blue-500"
                       />
                       <Label htmlFor="normal" className="text-sm">
-                        Normal
+                        {contact('form.priorities.normal')}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -535,7 +536,7 @@ export default function Contact() {
                         className="text-amber-500"
                       />
                       <Label htmlFor="high" className="text-sm">
-                        High Priority
+                        {contact('form.priorities.high')}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -545,7 +546,7 @@ export default function Contact() {
                         className="text-red-500"
                       />
                       <Label htmlFor="urgent" className="text-sm">
-                        Urgent
+                        {contact('form.priorities.urgent')}
                       </Label>
                     </div>
                   </RadioGroup>
@@ -554,10 +555,10 @@ export default function Contact() {
                 <motion.div className="space-y-2" variants={itemVariants}>
                   <label
                     htmlFor="message"
-                    className="text-sm font-medium text-foreground/80 flex items-center hidden md:block"
+                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
                   >
                     <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    Message
+                    {contact('form.message')}
                   </label>
                   <div className="relative">
                     <Textarea
@@ -600,7 +601,7 @@ export default function Contact() {
                     ) : (
                       <Send className="w-5 h-5" />
                     )}
-                    {formState === "submitting" ? "Sending..." : "Send Message"}
+                    {formState === "submitting" ? contact('form.sending') : contact('form.send')}
                   </motion.button>
                 </motion.div>
 
@@ -609,8 +610,7 @@ export default function Contact() {
                   className="text-xs text-center text-muted-foreground mt-4"
                   variants={itemVariants}
                 >
-                  Your information is secure and will never be shared with third
-                  parties.
+                  {contact('form.privacy')}
                 </motion.p>
               </motion.form>
             )}

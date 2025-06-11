@@ -29,7 +29,7 @@ export default function SectionLayout({
     <section
       id={id}
       className={cn(
-        "relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-16 lg:py-24",
+        "relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-8 lg:py-16",
         className
       )}
     >
@@ -53,7 +53,7 @@ export default function SectionLayout({
       >
         {/* Section header - consistent across all sections */}
         {(title || subtitle) && (
-          <div className="text-center mb-8 md:mb-16">
+          <div className="text-center mb-8 md:mb-12">
             {title && (
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export default function SectionLayout({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2, delay: 0.2 }}
                 className={cn(
-                  "mt-4 text-lg text-muted-foreground max-w-2xl mx-auto",
+                  "mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
                   subtitleClassName
                 )}
               >

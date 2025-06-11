@@ -8,9 +8,11 @@ import linkedin from "@/assets/gif.gif"
 import AnimatedText from "../animated-text"
 import AnimatedButton from "../animated-button"
 import AnimatedCard from "../animated-card"
+import { useTranslation } from "@/lib/hooks/useTranslation"
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
+  const { hero } = useTranslation()
 
   const imageContainerVariants = {
     hidden: { 
@@ -104,7 +106,7 @@ export default function Hero() {
               >
                 <Image
                   src={linkedin || "/placeholder.svg"}
-                  alt="Matheus Castro"
+                  alt={hero('name')}
                   unoptimized
                   fill
                   priority
@@ -157,16 +159,16 @@ export default function Hero() {
             <div className="space-y-8">
               <div>
                 <AnimatedText
-                  text="Matheus Castro"
+                  text={hero('name')}
                   className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
                 />
                 <AnimatedText
-                  text="Full Stack Developer"
-                  className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mt-2"
+                  text={hero('title')}
+                  className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium mt-2"
                 />
                 <AnimatedText
-                  text="React • Next.js • TypeScript • React Native"
-                  className="text-sm md:text-base text-foreground dark:text-primary font-medium mt-3"
+                  text={hero('subtitle')}
+                  className="text-sm text-foreground dark:text-primary font-medium mt-3"
                 />
               </div>
 
@@ -175,15 +177,10 @@ export default function Hero() {
                 delay={0.4}
                 className="relative p-6"
               >
-                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-                  Hi there! 👋 <br />
-                  <br />
-                  I&apos;m passionate about creating fluid and accessible interfaces. I design and code beautifully
-                  simple things, and I love what I do. <br />
-                  <br />
-                  Focused on React, Next.js and React Native, I constantly seek to improve my skills to deliver
-                  exceptional user experiences.
-                </p>
+                <p 
+                  className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0"
+                  dangerouslySetInnerHTML={{ __html: hero('bio') }}
+                />
               </AnimatedCard>
 
               {/* Social buttons - iOS style */}
@@ -196,19 +193,19 @@ export default function Hero() {
                 <AnimatedButton
                   href="https://github.com/Couks"
                   icon={<Github className="w-5 h-5" />}
-                  label="GitHub"
+                  label={hero('buttons.github')}
                   variant="apple-primary"
                 />
                 <AnimatedButton
                   href="https://www.linkedin.com/in/matheuscastroks/"
                   icon={<Linkedin className="w-5 h-5" />}
-                  label="LinkedIn"
+                  label={hero('buttons.linkedin')}
                   variant="apple-primary"
                 />
                 <AnimatedButton
                   href="mailto:matheuscastroks@gmail.com"
                   icon={<Mail className="w-5 h-5" />}
-                  label="Hire me"
+                  label={hero('buttons.hire')}
                   variant="apple"
                 />
               </motion.div>

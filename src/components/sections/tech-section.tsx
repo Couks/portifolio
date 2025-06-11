@@ -37,77 +37,78 @@ import { TbApi } from "react-icons/tb"
 import { Code, Zap, Database, Globe, Smartphone } from "lucide-react"
 import { cn } from "@/lib/utils"
 import SectionLayout from "../section-layout"
-
-const categories = [
-  {
-    title: "Modern Frontend",
-    description: "Creating responsive, accessible, and high-performance interfaces with a focus on user experience.",
-    icon: <Code />,
-    technologies: [
-      { name: "React", icon: SiReact, color: "text-[#61DAFB]" },
-      { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-[#38B2AC]" },
-      { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
-      { name: "Redux", icon: SiRedux, color: "text-[#764ABC]" },
-      { name: "Vite", icon: SiVite, color: "text-[#646CFF]" },
-      { name: "Framer Motion", icon: SiFramer, color: "text-[#0055FF]" },
-      { name: "ShadCN UI", icon: SiTailwindcss, color: "text-foreground" },
-    ],
-  },
-  {
-    title: "Integrations & APIs",
-    description:
-      "Integrating applications with REST APIs, GraphQL, authentication, OpenAI, and external services with security and scalability.",
-    icon: <Globe />,
-    technologies: [
-      { name: "REST API", icon: TbApi, color: "text-foreground" },
-      { name: "GraphQL", icon: SiGraphql, color: "text-[#E535AB]" },
-      { name: "OpenAI API", icon: SiOpenai, color: "text-foreground" },
-      { name: "Postman", icon: SiPostman, color: "text-[#FF6C37]" },
-      { name: "Insomnia", icon: SiInsomnia, color: "text-[#5849BE]" },
-    ],
-  },
-  {
-    title: "Backend for Frontend",
-    description:
-      "Creating APIs and business logic with Node, Express, and NestJS, focused on clean and secure architectures.",
-    icon: <Zap />,
-    technologies: [
-      { name: "Node.js", icon: FaNode, color: "text-[#339933]" },
-      { name: "NestJS", icon: SiNestjs, color: "text-[#E0234E]" },
-      { name: "Prisma ORM", icon: SiPrisma, color: "text-foreground" },
-      { name: "Drizzle ORM", icon: SiDrizzle, color: "text-foreground" },
-    ],
-  },
-  {
-    title: "Databases & Infrastructure",
-    description:
-      "Efficient modeling, data security, and optimized deployments with Docker, Vercel, and relational databases.",
-    icon: <Database />,
-    technologies: [
-      { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#336791]" },
-      { name: "MySQL", icon: SiMysql, color: "text-[#4479A1]" },
-      { name: "Docker", icon: SiDocker, color: "text-[#2496ED]" },
-      { name: "Git", icon: FaGitAlt, color: "text-[#F05032]" },
-      { name: "Vercel", icon: SiVercel, color: "text-foreground" },
-    ],
-  },
-  {
-    title: "Mobile & Cross-platform",
-    description: "Developing responsive and native apps with Expo and React Native, maintaining a unified codebase.",
-    icon: <Smartphone />,
-    technologies: [
-      { name: "React Native", icon: SiReact, color: "text-[#61DAFB]" },
-      { name: "Expo", icon: SiExpo, color: "text-foreground" },
-      { name: "Styled Components", icon: SiStyledcomponents, color: "text-[#DB7093]" },
-      { name: "OAuth", icon: SiGoogleauthenticator, color: "text-foreground" },
-      { name: "ESBuild", icon: SiEsbuild, color: "text-[#FFCF00]" },
-      { name: "Play Store", icon: SiGoogleplay, color: "text-[#34A853]" },
-    ],
-  },
-]
+import { useTranslation } from "@/lib/hooks/useTranslation"
 
 export default function TechSection() {
+  const { tech } = useTranslation()
+  
+  const categories = [
+    {
+      title: tech('categories.frontend'),
+      description: tech('descriptions.frontend'),
+      icon: <Code />,
+      technologies: [
+        { name: "React", icon: SiReact, color: "text-[#61DAFB]" },
+        { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-[#38B2AC]" },
+        { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
+        { name: "Redux", icon: SiRedux, color: "text-[#764ABC]" },
+        { name: "Vite", icon: SiVite, color: "text-[#646CFF]" },
+        { name: "Framer Motion", icon: SiFramer, color: "text-[#0055FF]" },
+        { name: "ShadCN UI", icon: SiTailwindcss, color: "text-foreground" },
+      ],
+    },
+    {
+      title: tech('categories.integrations'),
+      description: tech('descriptions.integrations'),
+      icon: <Globe />,
+      technologies: [
+        { name: "REST API", icon: TbApi, color: "text-foreground" },
+        { name: "GraphQL", icon: SiGraphql, color: "text-[#E535AB]" },
+        { name: "OpenAI API", icon: SiOpenai, color: "text-foreground" },
+        { name: "i18N", icon: Globe, color: "text-[#0070F3]" },
+        { name: "Postman", icon: SiPostman, color: "text-[#FF6C37]" },
+        { name: "Insomnia", icon: SiInsomnia, color: "text-[#5849BE]" },
+      ],
+    },
+    {
+      title: tech('categories.backend'),
+      description: tech('descriptions.backend'),
+      icon: <Zap />,
+      technologies: [
+        { name: "Node.js", icon: FaNode, color: "text-[#339933]" },
+        { name: "NestJS", icon: SiNestjs, color: "text-[#E0234E]" },
+        { name: "Prisma ORM", icon: SiPrisma, color: "text-foreground" },
+        { name: "Drizzle ORM", icon: SiDrizzle, color: "text-foreground" },
+      ],
+    },
+    {
+      title: tech('categories.infrastructure'),
+      description: tech('descriptions.infrastructure'),
+      icon: <Database />,
+      technologies: [
+        { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#336791]" },
+        { name: "MySQL", icon: SiMysql, color: "text-[#4479A1]" },
+        { name: "Docker", icon: SiDocker, color: "text-[#2496ED]" },
+        { name: "Git", icon: FaGitAlt, color: "text-[#F05032]" },
+        { name: "Vercel", icon: SiVercel, color: "text-foreground" },
+      ],
+    },
+    {
+      title: tech('categories.tools'),
+      description: tech('descriptions.tools'),
+      icon: <Smartphone />,
+      technologies: [
+        { name: "React Native", icon: SiReact, color: "text-[#61DAFB]" },
+        { name: "Expo", icon: SiExpo, color: "text-foreground" },
+        { name: "Styled Components", icon: SiStyledcomponents, color: "text-[#DB7093]" },
+        { name: "OAuth", icon: SiGoogleauthenticator, color: "text-foreground" },
+        { name: "ESBuild", icon: SiEsbuild, color: "text-[#FFCF00]" },
+        { name: "Play Store", icon: SiGoogleplay, color: "text-[#34A853]" },
+      ],
+    },
+  ]
+
   const [activeCategory, setActiveCategory] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
@@ -188,8 +189,8 @@ export default function TechSection() {
   return (
     <SectionLayout
       id="tech-stack"
-      title="My Technology Stack"
-      subtitle="Tools and technologies I use to bring digital products to life"
+      title={tech('title')}
+      subtitle={tech('subtitle')}
     >
       {/* Decorative floating elements */}
       {!prefersReducedMotion &&
@@ -300,7 +301,7 @@ export default function TechSection() {
                         </div>
                       </motion.div>
                       <div>
-                        <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground flex items-center gap-2">
                           {category.title}
                           <motion.span
                             className="w-1.5 h-6 bg-primary rounded-full"
@@ -314,7 +315,7 @@ export default function TechSection() {
 
                     {/* Description */}
                     <motion.p 
-                      className="text-sm text-muted-foreground mb-6 leading-relaxed"
+                      className="text-sm md:text-base text-muted-foreground mb-6 leading-relaxed"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.3 }}

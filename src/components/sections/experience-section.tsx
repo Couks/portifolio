@@ -21,6 +21,7 @@ import rocket from "@/assets/rocketimob-logo.png";
 import ebenertkd from "@/assets/favicon-ebenertkd.webp";
 import AnimatedButton from "../animated-button";
 import SectionLayout from "../section-layout";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 interface Experience {
   company: string;
@@ -161,6 +162,7 @@ const experiences: Experience[] = [
 ];
 
 export default function ProfessionalExperience() {
+  const { experience } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -192,8 +194,8 @@ export default function ProfessionalExperience() {
   return (
     <SectionLayout
       id="experience"
-      title="Professional Experience"
-      subtitle="Key roles that have shaped my expertise in frontend development"
+      title={experience('title')}
+      subtitle={experience('subtitle')}
     >
       <motion.div
         ref={containerRef}
@@ -269,10 +271,10 @@ export default function ProfessionalExperience() {
                             />
                           </Avatar>
                           <div>
-                            <h3 className="text-xl font-bold text-foreground">
+                            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground">
                               {exp.company}
                             </h3>
-                            <p className="text-lg font-medium text-foreground">
+                            <p className="text-base md:text-lg font-medium text-foreground">
                               {exp.role}
                             </p>
                             <div className="flex items-center text-muted-foreground mt-1">
@@ -337,7 +339,7 @@ export default function ProfessionalExperience() {
                           className="bg-card rounded-xl border p-6"
                           variants={itemVariants}
                         >
-                          <h4 className="text-lg font-bold text-foreground mb-4 flex items-center">
+                          <h4 className="text-lg md:text-xl font-bold text-foreground mb-4 flex items-center">
                             <span className="inline-block w-1.5 h-6 bg-primary rounded-full mr-2"></span>
                             Key Achievements
                           </h4>
@@ -369,24 +371,24 @@ export default function ProfessionalExperience() {
                         >
                           <div className="text-center sm:text-left">
                             <h4 className="text-base font-semibold mb-1">
-                              Interested in my work?
+                              {experience('cta.interested')}
                             </h4>
                             <p className="text-sm text-muted-foreground">
-                              Download my resume or get in touch
+                              {experience('cta.description')}
                             </p>
                           </div>
                           <div className="flex gap-3">
                             <AnimatedButton
                               href="/resume.pdf"
                               icon={<Download className="h-4 w-4" />}
-                              label="Resume"
+                              label={experience('cta.resume')}
                               variant="apple-primary"
                               className="py-2 px-4"
                             />
                             <AnimatedButton
                               href="mailto:matheuscastroks@gmail.com"
                               icon={<MailCheck className="h-4 w-4" />}
-                              label="Contact"
+                              label={experience('cta.contact')}
                               variant="apple"
                               className="py-2 px-4"
                             />

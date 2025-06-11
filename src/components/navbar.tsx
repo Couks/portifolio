@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle } from "./language-toggle";
 import {
   Home,
   Briefcase,
@@ -15,22 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { name: "About", href: "#about", icon: <Home className="w-4 h-4" /> },
-  { name: "Stacks", href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
-  {
-    name: "Projects",
-    href: "#projects",
-    icon: <Briefcase className="w-4 h-4" />,
-  },
-  // {
-  //   name: "Experience",
-  //   href: "#experience",
-  //   icon: <GraduationCap className="w-4 h-4" />,
-  // },
-  { name: "Contact", href: "#contact", icon: <Phone className="w-4 h-4" /> },
-];
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 interface NavItemProps {
   name: string;
@@ -124,7 +110,7 @@ const NavItem = React.memo(function NavItem({
         className={cn(
           "group flex items-center transition-colors duration-200",
           isMobile
-            ? "px-4 py-3 text-base justify-start w-full rounded-xl"
+            ? "px-4 py-3 text-sm justify-start w-full rounded-xl"
             : "p-3 justify-center rounded-full hover:bg-foreground/10",
           isActive
             ? isMobile
@@ -198,7 +184,6 @@ interface MobileNavbarProps extends NavbarContentProps {
   toggleMobileMenu: () => void;
 }
 
-// Desktop navbar component
 const DesktopNavbar = React.memo(function DesktopNavbar({
   activeItem,
   setActiveItem,
@@ -207,6 +192,14 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
 }: NavbarContentProps) {
   const navbarRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const { navigation } = useTranslation();
+
+  const navItems = useMemo(() => [
+    { name: navigation('about'), href: "#about", icon: <Home className="w-4 h-4" /> },
+    { name: navigation('tech'), href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
+    { name: navigation('projects'), href: "#projects", icon: <Briefcase className="w-4 h-4" /> },
+    { name: navigation('contact'), href: "#contact", icon: <Phone className="w-4 h-4" /> },
+  ], [navigation]);
 
   const navbarVariants = {
     hidden: { 
@@ -304,7 +297,7 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
         />
 
         <motion.div 
-          className="flex items-center justify-center"
+          className="flex flex-col items-center gap-2"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -315,6 +308,7 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
             damping: 25
           }}
         >
+          <LanguageToggle showLabel={showLabels} />
           <ThemeToggle />
         </motion.div>
       </motion.div>
@@ -331,6 +325,14 @@ const MobileNavbar = React.memo(function MobileNavbar({
 }: MobileNavbarProps) {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const { navigation } = useTranslation();
+
+  const navItems = useMemo(() => [
+    { name: navigation('about'), href: "#about", icon: <Home className="w-4 h-4" /> },
+    { name: navigation('tech'), href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
+    { name: navigation('projects'), href: "#projects", icon: <Briefcase className="w-4 h-4" /> },
+    { name: navigation('contact'), href: "#contact", icon: <Phone className="w-4 h-4" /> },
+  ], [navigation]);
 
   const handleNavItemClick = useCallback(
     (name: string) => {
@@ -402,39 +404,25 @@ const MobileNavbar = React.memo(function MobileNavbar({
     }
   };
 
-  const headerVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 30
-      }
-    }
-  };
-
   return (
     <>
-      <motion.div 
-        className="fixed top-6 right-6 z-50"
-        initial={{ opacity: 0, scale: 0 }}
+      <motion.div
+        className="fixed top-4 right-4 z-50"
+        initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
           type: "spring",
           stiffness: 400,
           damping: 25,
-          duration: prefersReducedMotion ? 0.2 : 0.5
+          duration: 0.5
         }}
       >
         <motion.button
           onClick={toggleMobileMenu}
-          className="p-3 rounded-full backdrop-blur-lg border shadow-lg bg-background/80 border-border"
           variants={buttonVariants}
           animate={isMobileMenuOpen ? "open" : "closed"}
-          whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-          whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+          className="flex items-center justify-center w-12 h-12 rounded-xl backdrop-blur-lg border shadow-lg bg-background/80 border-border hover:bg-foreground/10 transition-colors"
+          whileTap={{ scale: 0.95 }}
           aria-label="Toggle menu"
         >
           <AnimatePresence mode="wait">
@@ -444,9 +432,9 @@ const MobileNavbar = React.memo(function MobileNavbar({
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: prefersReducedMotion ? 0.1 : 0.2 }}
+                transition={{ duration: 0.2 }}
               >
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-6 h-6" />
               </motion.div>
             ) : (
               <motion.div
@@ -454,97 +442,119 @@ const MobileNavbar = React.memo(function MobileNavbar({
                 initial={{ rotate: 90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: prefersReducedMotion ? 0.1 : 0.2 }}
+                transition={{ duration: 0.2 }}
               >
-                <Menu className="w-5 h-5 text-foreground" />
+                <Menu className="w-6 h-6" />
               </motion.div>
             )}
           </AnimatePresence>
         </motion.button>
       </motion.div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             ref={mobileMenuRef}
+            className="fixed top-0 left-0 w-full h-full bg-background/95 backdrop-blur-lg z-40"
             variants={menuVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border shadow-lg bg-background/95 backdrop-blur-lg p-4"
           >
             <motion.div 
-              className="flex justify-between items-center mb-4"
-              variants={headerVariants}
-            >
-              <motion.h3 
-                className="text-lg font-semibold text-foreground"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
-              >
-                Navigation
-              </motion.h3>
-              <motion.div
-                className="flex items-center"
-                initial={{ opacity: 0, rotate: -180 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                transition={{
-                  delay: 0.2,
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 25
-                }}
-              >
-                <ThemeToggle />
-              </motion.div>
-            </motion.div>
-
-            <motion.div 
-              className="flex flex-col gap-2"
+              className="flex flex-col justify-center items-center h-full px-8 py-16"
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
                   opacity: 1,
                   transition: {
-                    staggerChildren: 0.05,
-                    delayChildren: 0.1
+                    staggerChildren: 0.1,
+                    delayChildren: 0.2
                   }
                 }
               }}
             >
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  variants={{
-                    hidden: { 
-                      opacity: 0, 
-                      x: -30,
-                      scale: 0.9
-                    },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      scale: 1,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                        delay: index * 0.05
-                      }
-                    }
+              <motion.div
+                className="flex items-center justify-between w-full max-w-sm mb-12"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <motion.h3
+                  className="text-lg md:text-xl lg:text-2xl font-bold"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.1,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 25
                   }}
                 >
-                  <NavItem
-                    name={item.name}
-                    href={item.href}
-                    isActive={activeItem === item.name}
-                    setActiveItem={handleNavItemClick}
-                    icon={item.icon}
-                    isMobile={true}
-                  />
+                  Menu
+                </motion.h3>
+                <motion.div
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0, rotate: -180 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  transition={{
+                    delay: 0.2,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 25
+                  }}
+                >
+                  <LanguageToggle showLabel={true} />
+                  <ThemeToggle />
                 </motion.div>
-              ))}
+              </motion.div>
+
+              <motion.div 
+                className="flex flex-col gap-2"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.05,
+                      delayChildren: 0.1
+                    }
+                  }
+                }}
+              >
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    variants={{
+                      hidden: { 
+                        opacity: 0, 
+                        x: -30,
+                        scale: 0.9
+                      },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        scale: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                          delay: index * 0.05
+                        }
+                      }
+                    }}
+                  >
+                    <NavItem
+                      name={item.name}
+                      href={item.href}
+                      isActive={activeItem === item.name}
+                      setActiveItem={handleNavItemClick}
+                      icon={item.icon}
+                      isMobile={true}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
@@ -559,6 +569,14 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isUserClicking, setIsUserClicking] = useState(false);
+  const { navigation } = useTranslation();
+
+  const navItems = useMemo(() => [
+    { name: navigation('about'), href: "#about", icon: <Home className="w-4 h-4" /> },
+    { name: navigation('tech'), href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
+    { name: navigation('projects'), href: "#projects", icon: <Briefcase className="w-4 h-4" /> },
+    { name: navigation('contact'), href: "#contact", icon: <Phone className="w-4 h-4" /> },
+  ], [navigation]);
 
   // Memoized event handlers
   const handleResize = useCallback(() => {
@@ -663,7 +681,7 @@ export default function Navbar() {
       clearTimeout(timeoutId);
       sectionObservers.forEach((observer) => observer.disconnect());
     };
-  }, [activeItem, isUserClicking]);
+  }, [activeItem, isUserClicking, navItems]);
 
   return isMobile ? (
     <MobileNavbar

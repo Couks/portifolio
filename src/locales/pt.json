@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "title": "Matheus Castro - Desenvolvedor Frontend",
+    "description": "Portfolio pessoal de Matheus Castro"
+  },
+  "navigation": {
+    "about": "Sobre",
+    "experience": "Experiência",
+    "projects": "Projetos",
+    "tech": "Tecnologias",
+    "contact": "Contato"
+  },
+  "hero": {
+    "name": "Matheus Castro",
+    "title": "Desenvolvedor Full Stack",
+    "subtitle": "React • Next.js • TypeScript • React Native",
+    "bio": "Olá! 👋<br /><br />Sou apaixonado por criar interfaces fluidas e acessíveis. Projeto e programo coisas lindas e simples, e amo o que faço.<br /><br />Focado em React, Next.js e React Native, busco constantemente aprimorar minhas habilidades para entregar experiências excepcionais ao usuário.",
+    "buttons": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "hire": "Contratar"
+    }
+  },
+  "experience": {
+    "title": "Experiência Profissional",
+    "subtitle": "Principais funções que moldaram minha expertise em desenvolvimento frontend",
+    "duration": {
+      "present": "Presente"
+    },
+    "location": {
+      "remote": "Remoto",
+      "sao_paulo": "São Paulo, SP",
+      "rio_janeiro": "Rio de Janeiro, RJ"
+    },
+    "cta": {
+      "interested": "Interessado no meu trabalho?",
+      "description": "Baixe meu currículo ou entre em contato",
+      "resume": "Currículo",
+      "contact": "Contato"
+    }
+  },
+  "projects": {
+    "title": "Projetos em Destaque",
+    "subtitle": "Uma seleção de projetos que desenvolvidos recentemente",
+    "technologies": "Tecnologias",
+    "links": {
+      "visit": "Visitar Site",
+      "repository": "Ver Repositório"
+    },
+    "viewAll": "Ver Todos os Projetos no GitHub",
+    "items": {
+      "ebener": {
+        "title": "Ebener Taekwondo",
+        "description": "Um site moderno para a Academia Ebener Taekwondo, projetado para melhorar a presença online e a visibilidade nos mecanismos de busca. Inclui horários de aulas, depoimentos e informações de contato."
+      },
+      "finances": {
+        "title": "What's Your Finances",
+        "description": "Uma aplicação móvel abrangente projetada para ajudar você a gerenciar suas finanças sem esforço. Rastreie suas despesas, defina orçamentos e obtenha insights sobre sua saúde financeira."
+      },
+      "devtips": {
+        "title": "Dev Tips",
+        "description": "Uma aplicação móvel para ajudar devs com dicas diárias de programação. Inclui dicas diárias, filtragem por linguagem, acompanhamento de desafios e estatísticas de progresso."
+      },
+      "pdc": {
+        "title": "PDC",
+        "description": "Uma aplicação móvel desenvolvida em React Native e Expo para gerenciamento seguro de prontuários médicos digitais. Possui áreas dedicadas para médicos e pacientes."
+      }
+    }
+  },
+  "tech": {
+    "title": "Stack Tecnológica",
+    "subtitle": "Tecnologias e ferramentas que uso no dia a dia",
+    "categories": {
+      "frontend": "Frontend Moderno",
+      "backend": "Backend para Frontend",
+      "tools": "Ferramentas e Produtividade",
+      "integrations": "Integrações & APIs",
+      "infrastructure": "Bancos de Dados e Infraestrutura"
+    },
+    "descriptions": {
+      "frontend": "Criando interfaces responsivas, acessíveis e de alta performance com foco na experiência do usuário.",
+      "integrations": "Integrando aplicações com REST APIs, GraphQL, autenticação, OpenAI e serviços externos com segurança e escalabilidade. Implementando i18n para múltiplos idiomas.",
+      "backend": "Criando APIs e lógica de negócio com Node, Express e NestJS, focado em arquiteturas limpas e seguras.",
+      "infrastructure": "Modelagem eficiente, segurança de dados e deployments otimizados com Docker, Vercel e bancos relacionais.",
+      "tools": "Desenvolvendo aplicações responsivas e nativas com Expo e React Native, mantendo uma base de código unificada."
+    }
+  },
+  "contact": {
+    "title": "Vamos Conversar",
+    "subtitle": "Interessado em trabalhar juntos? Vamos construir algo incrível!",
+    "greeting": {
+      "title": "Olá! 👋",
+      "available": "Disponível para novos projetos"
+    },
+    "info": {
+      "title": "Informações de Contato",
+      "email": "Email",
+      "location": "Localização",
+      "availability": "Disponibilidade",
+      "response": "Resposta em até 24-48 horas"
+    },
+    "connect": {
+      "title": "Conectar",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "schedule": "Agendar"
+    },
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "priority": "Prioridade do Projeto",
+      "priorities": {
+        "low": "Baixa Prioridade",
+        "normal": "Normal",
+        "high": "Alta Prioridade",
+        "urgent": "Urgente"
+      },
+      "message": "Mensagem",
+      "placeholders": {
+        "name": "Como devo te chamar?",
+        "email": "Seu melhor email",
+        "message1": "Adoraria discutir suas ideias de projeto...",
+        "message2": "Me conte sobre os desafios que está enfrentando...",
+        "message3": "Procurando uma oportunidade de colaboração?",
+        "message4": "Precisa de ajuda com seu próximo projeto web?"
+      },
+      "send": "Enviar Mensagem",
+      "sending": "Enviando...",
+      "privacy": "Suas informações são seguras e nunca serão compartilhadas com terceiros."
+    },
+    "success": {
+      "title": "Mensagem Enviada!",
+      "description": "Obrigado por entrar em contato. Retornarei o mais breve possível."
+    },
+    "error": {
+      "title": "Erro ao Enviar Mensagem",
+      "description": "Desculpe, algo deu errado. Tente novamente ou envie um email diretamente."
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Matheus Castro."
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "retry": "Tentar novamente"
+  }
+} 

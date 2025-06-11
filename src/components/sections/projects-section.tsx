@@ -18,6 +18,7 @@ import pdc from "@/assets/PDC.png";
 import placeholder from "@/assets/placeholder.png";
 import AnimatedButton from "../animated-button";
 import SectionLayout from "../section-layout";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 // Import Swiper styles
 import "swiper/css";
@@ -25,67 +26,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 
-const projects = [
-  {
-    title: "Ebener Taekwondo",
-    description:
-      "A modern website for Ebener Taekwondo Academy, designed to enhance online presence and improve search engine visibility. Features include class schedules, testimonials and contact information.",
-    technologies: [
-      "Next.js",
-      "Tailwind CSS",
-      "Framer Motion",
-      "SwiperJS",
-      "ShadcnUI",
-    ],
-    links: [{ link: "https://ebenertkd.com.br/", text: "Visit Website" }],
-    image: ebenerTKD,
-  },
-  {
-    title: "What's Your Finances",
-    description:
-      "A comprehensive mobile application designed to help you manage your finances effortlessly. Track your expenses, set budgets, and gain insights into your financial health.",
-    technologies: [
-      "React Native",
-      "Expo",
-      "TypeScript",
-      "PostgreSQL",
-      "Axios",
-      "NativeWind",
-    ],
-    links: [
-      {
-        link: "https://whats-your-finances-web-page.vercel.app/",
-        text: "Visit Website",
-      },
-    ],
-    image: whatsYourFinances,
-  },
-  {
-    title: "Dev Tips",
-    description:
-      "A mobile application to help developers with daily programming tips. Features daily tips, language filtering, programming challenges tracking, and user profile with progress statistics.",
-    technologies: ["React Native", "Expo", "React Navigation", "AsyncStorage", "TypeScript"],
-    links: [
-      { link: "https://github.com/Couks/dev-tips", text: "View Repository" },
-    ],
-    image: devTips,
-  },
-  {
-    title: "PDC",
-    description:
-      "A mobile application developed in React Native and Expo for secure management of digital medical records. Features dedicated areas for doctors and patients.",
-    technologies: ["React Native", "Expo", "TypeScript", "React Navigation", "AsyncStorage"],
-    links: [
-      { link: "https://github.com/Couks/pdc", text: "View Repository" },
-    ],
-    image: pdc, 
-  },
-];
-
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const { t } = useTranslation();
 
   const containerVariants = {
     hidden: {},
@@ -139,11 +84,63 @@ export function ProjectsSection() {
     },
   };
 
+  const projects = [
+    {
+      title: t("projects.items.ebener.title"),
+      description: t("projects.items.ebener.description"),
+      technologies: [
+        "Next.js",
+        "Tailwind CSS",
+        "Framer Motion",
+        "SwiperJS",
+        "ShadcnUI",
+      ],
+      links: [{ link: "https://ebenertkd.com.br/", text: t("projects.links.visit") }],
+      image: ebenerTKD,
+    },
+    {
+      title: t("projects.items.finances.title"),
+      description: t("projects.items.finances.description"),
+      technologies: [
+        "React Native",
+        "Expo",
+        "PostgreSQL",
+        "Axios",
+        "NativeWind",
+      ],
+      links: [
+        {
+          link: "https://whats-your-finances-web-page.vercel.app/",
+          text: t("projects.links.visit"),
+        },
+      ],
+      image: whatsYourFinances,
+    },
+    {
+      title: t("projects.items.devtips.title"),
+      description: t("projects.items.devtips.description"),
+      technologies: ["React Native", "Expo", "React Navigation", "AsyncStorage", "TypeScript"],
+      links: [
+        { link: "https://github.com/Couks/dev-tips", text: t("projects.links.repository") },
+      ],
+      image: devTips,
+    },
+    {
+      title: t("projects.items.pdc.title"),
+      description: t("projects.items.pdc.description"),
+      technologies: ["React Native", "Expo", "TypeScript", "React Navigation", "AsyncStorage"],
+      links: [
+        { link: "https://github.com/Couks/pdc", text: t("projects.links.repository") },
+      ],
+      image: pdc, 
+    },
+  ];
+
   return (
     <SectionLayout
       id="projects"
-      title="My Projects"
-      subtitle="Take a look at some of my recent projects. Each one is a unique piece of work that I am proud to share."
+      title={t("projects.title")}
+      subtitle={t("projects.subtitle")}
     >
       <motion.div
         ref={sectionRef}
@@ -248,7 +245,7 @@ export function ProjectsSection() {
                               stiffness: 200,
                               damping: 20
                             }}
-                            className="font-bold text-xl sm:text-2xl md:text-3xl text-foreground mb-3 line-clamp-2"
+                            className="font-bold text-lg md:text-xl lg:text-2xl text-foreground mb-3 line-clamp-2"
                           >
                             {project.title}
                           </motion.h3>
@@ -262,7 +259,7 @@ export function ProjectsSection() {
                               stiffness: 200,
                               damping: 20
                             }}
-                            className="text-muted-foreground text-sm sm:text-base leading-relaxed line-clamp-3 md:line-clamp-4"
+                            className="text-muted-foreground text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-4"
                           >
                             {project.description}
                           </motion.p>
@@ -293,7 +290,7 @@ export function ProjectsSection() {
                                 repeatType: "reverse",
                               }}
                             />
-                            Technologies
+                            {t("projects.technologies")}
                           </h4>
                           
                           <motion.div 
@@ -382,7 +379,7 @@ export function ProjectsSection() {
           <AnimatedButton
             href="https://github.com/Couks"
             icon={<ExternalLink className="w-4 h-4" />}
-            label="View All Projects on GitHub"
+            label={t("projects.viewAll")}
             variant="apple"
           />
         </motion.div>

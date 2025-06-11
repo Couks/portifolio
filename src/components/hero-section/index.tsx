@@ -22,17 +22,17 @@ export default function Hero() {
           <div className="flex-1 text-center md:text-left">
             <AnimatedText
               text="Matheus Castro"
-              className="text-5xl md:text-8xl font-extrabold md:mb-4 "
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold md:mb-4"
             />
             <AnimatedText
               text="Frontend Developer"
-              className="text-3xl md:text-5xl mb-8 text-gray-600 font-medium dark:text-gray-400"
+              className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-600 font-medium dark:text-gray-400"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="mb-6 max-w-lg mx-2 md:mx-0 text-gray-800 dark:text-gray-200 md:text-lg"
+              className="mb-6 max-w-lg mx-2 md:mx-0 text-gray-800 dark:text-gray-200 text-base md:text-lg"
             >
               Hi there!🖐️ <br />
               <br />
