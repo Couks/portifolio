@@ -5,6 +5,8 @@
 html {
   font-family: Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer base {
@@ -88,11 +90,9 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Remove scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
-    border-radius: 8px;
+    display: none;
   }
 }
