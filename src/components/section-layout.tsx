@@ -29,7 +29,7 @@ export default function SectionLayout({
     <section
       id={id}
       className={cn(
-        "relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-8 lg:py-16",
+        "relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-4 lg:py-8",
         className
       )}
     >

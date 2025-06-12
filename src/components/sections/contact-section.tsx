@@ -258,19 +258,6 @@ export default function Contact() {
       >
         {/* Left Column - Contact Info */}
         <motion.div className="space-y-8 lg:col-span-2" variants={itemVariants}>
-          {/* Personal touch - Avatar and greeting */}
-          <motion.div
-            className="flex-col items-center lg:items-start gap-4 mb-6 hidden md:flex"
-            variants={itemVariants}
-          >
-            <div className="text-center lg:text-left">
-              <h3 className="text-lg md:text-xl lg:text-2xl font-bold">{contact('greeting.title')}</h3>
-              <p className="text-base md:text-lg text-muted-foreground">
-                {contact('greeting.available')}
-              </p>
-            </div>
-          </motion.div>
-
           <motion.div className="space-y-6 hidden md:block" variants={itemVariants}>
             <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
@@ -462,13 +449,6 @@ export default function Contact() {
                 variants={itemVariants}
               >
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
-                  >
-                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    {contact('form.name')}
-                  </label>
                   <Input
                     id="name"
                     value={formData.name}
@@ -480,13 +460,6 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
-                  >
-                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    {contact('form.email')}
-                  </label>
                   <Input
                     id="email"
                     value={formData.email}
@@ -500,10 +473,6 @@ export default function Contact() {
 
                 {/* Project priority */}
                 <motion.div className="space-y-3" variants={itemVariants}>
-                  <label className="text-sm font-medium text-foreground/80 items-center hidden md:flex">
-                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    {contact('form.priority')}
-                  </label>
                   <RadioGroup
                     defaultValue="normal"
                     value={formData.priority}
@@ -554,13 +523,6 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-medium text-foreground/80 items-center hidden md:flex"
-                  >
-                    <span className="inline-block w-1 h-4 bg-primary rounded-full mr-2"></span>
-                    {contact('form.message')}
-                  </label>
                   <div className="relative">
                     <Textarea
                       className="min-h-[150px] bg-foreground/5 border-foreground/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 resize-none transition-all duration-200"
@@ -570,7 +532,6 @@ export default function Contact() {
                       placeholder={typingText || "..."}
                       required
                     />
-                    {/* Character count */}
                     <div className="absolute bottom-2 right-2 text-xs text-muted-foreground">
                       {formData.message.length} / 500
                     </div>

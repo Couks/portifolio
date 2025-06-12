@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { motion, useAnimation, useReducedMotion } from "framer-motion"
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/effect-coverflow'
+import { useState, useRef, useEffect } from "react";
+import { motion, useAnimation, useReducedMotion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
 import {
   SiReact,
   SiNextdotjs,
@@ -33,21 +33,21 @@ import {
   SiFramer,
   SiWordpress,
   SiPayloadcms,
-} from "react-icons/si"
-import { FaNode, FaGitAlt } from "react-icons/fa"
-import { TbApi } from "react-icons/tb"
-import { Code, Zap, Database, Globe, Smartphone } from "lucide-react"
-import { cn } from "@/lib/utils"
-import SectionLayout from "../section-layout"
-import { useTranslation } from "@/lib/hooks/useTranslation"
+} from "react-icons/si";
+import { FaNode, FaGitAlt } from "react-icons/fa";
+import { TbApi } from "react-icons/tb";
+import { Code, Zap, Database, Globe, Smartphone } from "lucide-react";
+import { cn } from "@/lib/utils";
+import SectionLayout from "../section-layout";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export default function TechSection() {
-  const { tech } = useTranslation()
-  
+  const { tech } = useTranslation();
+
   const categories = [
     {
-      title: tech('categories.frontend'),
-      description: tech('descriptions.frontend'),
+      title: tech("categories.frontend"),
+      description: tech("descriptions.frontend"),
       icon: <Code />,
       technologies: [
         { name: "React", icon: SiReact, color: "text-[#61DAFB]" },
@@ -61,8 +61,8 @@ export default function TechSection() {
       ],
     },
     {
-      title: tech('categories.integrations'),
-      description: tech('descriptions.integrations'),
+      title: tech("categories.integrations"),
+      description: tech("descriptions.integrations"),
       icon: <Globe />,
       technologies: [
         { name: "REST API", icon: TbApi, color: "text-foreground" },
@@ -74,8 +74,8 @@ export default function TechSection() {
       ],
     },
     {
-      title: tech('categories.backend'),
-      description: tech('descriptions.backend'),
+      title: tech("categories.backend"),
+      description: tech("descriptions.backend"),
       icon: <Zap />,
       technologies: [
         { name: "Node.js", icon: FaNode, color: "text-[#339933]" },
@@ -87,8 +87,8 @@ export default function TechSection() {
       ],
     },
     {
-      title: tech('categories.infrastructure'),
-      description: tech('descriptions.infrastructure'),
+      title: tech("categories.infrastructure"),
+      description: tech("descriptions.infrastructure"),
       icon: <Database />,
       technologies: [
         { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#336791]" },
@@ -99,24 +99,32 @@ export default function TechSection() {
       ],
     },
     {
-      title: tech('categories.tools'),
-      description: tech('descriptions.tools'),
+      title: tech("categories.tools"),
+      description: tech("descriptions.tools"),
       icon: <Smartphone />,
       technologies: [
         { name: "React Native", icon: SiReact, color: "text-[#61DAFB]" },
         { name: "Expo", icon: SiExpo, color: "text-foreground" },
-        { name: "Styled Components", icon: SiStyledcomponents, color: "text-[#DB7093]" },
-        { name: "OAuth", icon: SiGoogleauthenticator, color: "text-foreground" },
+        {
+          name: "Styled Components",
+          icon: SiStyledcomponents,
+          color: "text-[#DB7093]",
+        },
+        {
+          name: "OAuth",
+          icon: SiGoogleauthenticator,
+          color: "text-foreground",
+        },
         { name: "ESBuild", icon: SiEsbuild, color: "text-[#FFCF00]" },
         { name: "Play Store", icon: SiGoogleplay, color: "text-[#34A853]" },
       ],
     },
-  ]
+  ];
 
-  const [activeCategory, setActiveCategory] = useState<number | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const prefersReducedMotion = useReducedMotion()
-  const controls = useAnimation()
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const controls = useAnimation();
 
   // Simplified floating animation for decorative elements
   useEffect(() => {
@@ -140,19 +148,29 @@ export default function TechSection() {
         delayChildren: prefersReducedMotion ? 0 : 0.05,
       },
     },
-  }
+  };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: {
+      opacity: 0,
+      y: 50,
+      rotateX: -15,
+      scale: 0.9,
+    },
     visible: {
       opacity: 1,
       y: 0,
+      rotateX: 0,
+      scale: 1,
       transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.3,
+        duration: prefersReducedMotion ? 0.1 : 0.5,
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const techVariants = {
     hidden: { opacity: 0, y: 10 },
@@ -164,74 +182,54 @@ export default function TechSection() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const iconVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.2,
-        ease: "easeOut"
+        ease: "easeOut",
       },
     },
     hover: {
       scale: 1.1,
       transition: { duration: 0.15 },
     },
-  }
-
-
+  };
 
   return (
     <SectionLayout
       id="tech-stack"
-      title={tech('title')}
-      subtitle={tech('subtitle')}
+      title={tech("title")}
+      subtitle={tech("subtitle")}
     >
-
-
       <motion.div
         ref={containerRef}
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="max-w-7xl mx-auto relative"
+        className="max-w-2xl mx-auto relative"
       >
         <div className="py-8">
           <Swiper
-            modules={[ EffectCoverflow ]}
-            spaceBetween={30}
+            modules={[EffectCoverflow, Autoplay]}
+            spaceBetween={100}
             slidesPerView={1}
             centeredSlides={true}
-            loop={true}
+            loop={false}
             effect="coverflow"
             coverflowEffect={{
-              rotate: 15,
-              stretch: 0,
               depth: 200,
-              modifier: 1,
               slideShadows: false,
             }}
-            breakpoints={{
-              640: {
-                slidesPerView: 1.5,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 2.5,
-                spaceBetween: 30,
-              },
-              1280: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             className="tech-swiper"
           >
@@ -245,15 +243,20 @@ export default function TechSection() {
                 >
                   <motion.div
                     className={cn(
-                      "h-full p-6 rounded-3xl backdrop-blur-lg bg-card border transition-all duration-200",
+                      "p-6 rounded-3xl backdrop-blur-lg bg-card border transition-all duration-200",
                       "border-primary/10 shadow-sm",
-                      activeCategory === i && "ring-2 ring-primary/30 shadow-xl shadow-primary/10"
+                      activeCategory === i &&
+                        "ring-2 ring-primary/30 shadow-xl shadow-primary/10"
                     )}
-                    whileHover={prefersReducedMotion ? {} : {
-                      y: -2,
-                      scale: 1.01,
-                      transition: { duration: 0.2, ease: "easeOut" }
-                    }}
+                    whileHover={
+                      prefersReducedMotion
+                        ? {}
+                        : {
+                            y: -2,
+                            scale: 1.01,
+                            transition: { duration: 0.2, ease: "easeOut" },
+                          }
+                    }
                     layout
                   >
                     {/* Header with icon */}
@@ -284,7 +287,7 @@ export default function TechSection() {
                     </div>
 
                     {/* Description */}
-                    <motion.p 
+                    <motion.p
                       className="text-sm md:text-base text-muted-foreground mb-6 leading-relaxed"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
@@ -314,11 +317,15 @@ export default function TechSection() {
                           <motion.div
                             key={j}
                             variants={techVariants}
-                            whileHover={prefersReducedMotion ? {} : {
-                              scale: 1.03,
-                              y: -1,
-                              transition: { duration: 0.15 },
-                            }}
+                            whileHover={
+                              prefersReducedMotion
+                                ? {}
+                                : {
+                                    scale: 1.03,
+                                    y: -1,
+                                    transition: { duration: 0.15 },
+                                  }
+                            }
                             className={cn(
                               "flex items-center gap-3 p-3 rounded-2xl transition-all duration-150",
                               "bg-gradient-to-r from-foreground/5 to-foreground/10",
@@ -332,12 +339,14 @@ export default function TechSection() {
                               transition={{ duration: 0.3 }}
                               className="flex-shrink-0"
                             >
-                              <tech.icon className={cn("text-xl", tech.color)} />
+                              <tech.icon
+                                className={cn("text-xl", tech.color)}
+                              />
                             </motion.div>
                             <span className="text-sm font-medium text-foreground">
                               {tech.name}
                             </span>
-                            
+
                             {/* Subtle glow effect on hover */}
                             <motion.div
                               className="ml-auto w-2 h-2 rounded-full bg-primary/30"
@@ -369,7 +378,6 @@ export default function TechSection() {
 
       <style jsx global>{`
         .tech-swiper {
-          padding: 20px 0;
           overflow: visible;
         }
 
@@ -382,5 +390,5 @@ export default function TechSection() {
         }
       `}</style>
     </SectionLayout>
-  )
+  );
 }

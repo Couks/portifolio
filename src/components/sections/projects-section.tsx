@@ -7,8 +7,8 @@ import { ExternalLink } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-
   EffectCoverflow,
+  Autoplay,
 } from "swiper/modules";
 import { cn } from "@/lib/utils";
 import ebenerTKD from "@/assets/ebener-tkd.png";
@@ -33,48 +33,59 @@ export function ProjectsSection() {
   const { t } = useTranslation();
 
   const containerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: shouldReduceMotion ? 0 : 0.1,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
       },
     },
   };
 
-  const cardVariants = {
+  const itemVariants = {
     hidden: { 
       opacity: 0, 
       y: 50,
-      rotateX: -15
+      rotateX: -15,
+      scale: 0.9
     },
     visible: {
       opacity: 1,
       y: 0,
       rotateX: 0,
+      scale: 1,
       transition: {
+        duration: shouldReduceMotion ? 0.1 : 0.5,
         type: "spring",
         stiffness: 300,
         damping: 25,
-        duration: shouldReduceMotion ? 0.2 : 0.8,
+        ease: "easeOut",
       },
     },
   };
 
   const techVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8, 
+      y: 20 
+    },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
+        duration: shouldReduceMotion ? 0.1 : 0.3,
         type: "spring",
         stiffness: 300,
         damping: 20,
+        ease: "easeOut",
       },
     },
   };
 
-  const floatingAnimation = {
+  const floatingAnimation = shouldReduceMotion ? {} : {
     y: [0, -10, 0],
     transition: {
       duration: 3,
@@ -147,32 +158,28 @@ export function ProjectsSection() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, amount: 0.2 }}
         className="flex flex-col justify-center items-center"
         aria-live="polite"
       >
         <motion.div 
-          variants={cardVariants}
-          animate={shouldReduceMotion ? {} : floatingAnimation}
+          variants={itemVariants}
+          animate={floatingAnimation}
           className="w-full mx-auto"
         >
           <Swiper
-            modules={[ EffectCoverflow ]}
+            modules={[EffectCoverflow, Autoplay]}
             spaceBetween={30}
             slidesPerView={1}
             centeredSlides={true}
-            loop={true}
+            loop={false}
             effect="coverflow"
-            coverflowEffect={{
-              rotate: 20,
-              stretch: 0,
-              depth: 300,
-              modifier: 1,
+            coverflowEffect={{        
+              depth: 300,             
               slideShadows: false,
             }}
-            
             autoplay={{
-              delay: 3500,
+              delay: 2000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
@@ -185,15 +192,10 @@ export function ProjectsSection() {
                 className="flex items-center justify-center p-4 md:p-8 overflow-visible w-full max-w-8xl"
               >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, rotateY: 20 }}
-                  transition={{ 
-                    duration: shouldReduceMotion ? 0.2 : 0.6,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 25
-                  }}
+                  variants={itemVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.3 }}
                   onMouseEnter={() => setActiveProject(index)}
                   onMouseLeave={() => setActiveProject(null)}
                   whileHover={shouldReduceMotion ? {} : {
@@ -206,12 +208,14 @@ export function ProjectsSection() {
                   <Card className={cn(
                     "w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border shadow-lg transition-all duration-500",
                     "bg-card backdrop-blur-sm border-border",
-                    activeProject === index ? "ring-2 ring-primary/30 shadow-xl shadow-primary/10" : ""
+                    activeProject === index ? "ring-2 ring-primary/30 shadow-xl shadow-primary/10" : "",
+                    "hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10"
                   )}>
                     <div className="flex flex-col md:grid md:grid-cols-5 h-full">
                       {/* Project Image - Responsive sizing */}
                       <div className="relative h-48 sm:h-56 md:h-full md:col-span-2 overflow-hidden">
                         <motion.div
+                          variants={itemVariants}
                           whileHover={shouldReduceMotion ? {} : { 
                             scale: 1.05,
                             rotate: 0.5
@@ -235,46 +239,22 @@ export function ProjectsSection() {
                       {/* Project Content - Expanded space */}
                       <div className="p-5 sm:p-6 md:p-7 md:col-span-3 flex flex-col h-full">
                         {/* Header Section */}
-                        <div className="mb-4">
-                          <motion.h3 
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ 
-                              delay: 0.2,
-                              type: "spring",
-                              stiffness: 200,
-                              damping: 20
-                            }}
-                            className="font-bold text-lg md:text-xl lg:text-2xl text-foreground mb-3 line-clamp-2"
-                          >
+                        <motion.div 
+                          variants={itemVariants}
+                          className="mb-4"
+                        >
+                          <h3 className="font-bold text-lg md:text-xl lg:text-2xl text-foreground mb-3 line-clamp-2">
                             {project.title}
-                          </motion.h3>
+                          </h3>
                           
-                          <motion.p 
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ 
-                              delay: 0.3,
-                              type: "spring",
-                              stiffness: 200,
-                              damping: 20
-                            }}
-                            className="text-muted-foreground text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-4"
-                          >
+                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-4">
                             {project.description}
-                          </motion.p>
-                        </div>
+                          </p>
+                        </motion.div>
 
                         {/* Technologies Section - Optimized spacing */}
                         <motion.div 
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ 
-                            delay: 0.4,
-                            type: "spring",
-                            stiffness: 200,
-                            damping: 20
-                          }}
+                          variants={itemVariants}
                           className="flex-1 mb-5"
                         >
                           <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center">
@@ -329,14 +309,7 @@ export function ProjectsSection() {
 
                         {/* Project Links - Sticky bottom */}
                         <motion.div 
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ 
-                            delay: 0.5,
-                            type: "spring",
-                            stiffness: 200,
-                            damping: 20
-                          }}
+                          variants={itemVariants}
                           className="mt-auto pt-2"
                         >
                           {project.links && (
@@ -364,7 +337,10 @@ export function ProjectsSection() {
 
         {/* View All Projects Button */}
         <motion.div 
-          variants={cardVariants}
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
           animate={shouldReduceMotion ? {} : {
             y: [0, -5, 0],
             transition: {
@@ -374,7 +350,7 @@ export function ProjectsSection() {
               delay: 1,
             },
           }}
-          className="mt-8 text-center"
+          className="mt-2 text-center"
         >
           <AnimatedButton
             href="https://github.com/Couks"
@@ -383,6 +359,16 @@ export function ProjectsSection() {
             variant="apple"
           />
         </motion.div>
+      </motion.div>
+
+      {/* Background gradient animation */}
+      <motion.div
+        className="absolute inset-0 -z-10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 blur-3xl" />
       </motion.div>
 
       <style jsx global>{`

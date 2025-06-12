@@ -14,37 +14,39 @@ export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
   const { hero } = useTranslation()
 
-  const imageContainerVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.8,
-      y: 50
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.1,
+        delayChildren: prefersReducedMotion ? 0 : 0.05,
+      },
     },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 25,
-        delay: 0.2,
-        duration: prefersReducedMotion ? 0.1 : 0.8
-      }
-    }
+        duration: prefersReducedMotion ? 0.1 : 0.3,
+        ease: "easeOut",
+      },
+    },
   }
 
   const imageVariants = {
     hidden: { 
       opacity: 0,
-      scale: 1.1
+      scale: 0.9
     },
     visible: { 
       opacity: 1,
       scale: 1,
       transition: {
-        delay: 0.4,
-        duration: prefersReducedMotion ? 0.1 : 0.6,
+        duration: prefersReducedMotion ? 0.1 : 0.4,
         ease: "easeOut"
       }
     }
@@ -63,16 +65,18 @@ export default function Hero() {
 
   return (
     <SectionLayout id="about" title="" className="min-h-screen">
-      <div
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
         className="w-full"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Profile Image */}
           <motion.div
+            variants={imageVariants}
             className="order-1 lg:order-2 relative mx-auto w-60 h-60 sm:w-64 sm:h-64 lg:w-[100%] lg:h-[100%]"
-            variants={imageContainerVariants}
-            initial="hidden"
-            animate="visible"
             whileHover={prefersReducedMotion ? {} : {
               scale: 1.02,
               transition: {
@@ -157,7 +161,7 @@ export default function Hero() {
           {/* Text Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             <div className="space-y-8">
-              <div>
+              <motion.div variants={itemVariants}>
                 <AnimatedText
                   text={hero('name')}
                   className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground"
@@ -170,24 +174,24 @@ export default function Hero() {
                   text={hero('subtitle')}
                   className="text-sm text-foreground dark:text-primary font-medium mt-3"
                 />
-              </div>
+              </motion.div>
 
               {/* Bio with subtle backdrop blur */}
-              <AnimatedCard
-                delay={0.4}
-                className="relative p-6"
-              >
-                <p 
-                  className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0"
-                  dangerouslySetInnerHTML={{ __html: hero('bio') }}
-                />
-              </AnimatedCard>
+              <motion.div variants={itemVariants}>
+                <AnimatedCard
+                  delay={0.4}
+                  className="relative p-6"
+                >
+                  <p 
+                    className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0"
+                    dangerouslySetInnerHTML={{ __html: hero('bio') }}
+                  />
+                </AnimatedCard>
+              </motion.div>
 
               {/* Social buttons - iOS style */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.2 }}
+              <motion.div 
+                variants={itemVariants}
                 className="flex flex-wrap gap-4 justify-center lg:justify-start"
               >
                 <AnimatedButton
@@ -212,7 +216,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </SectionLayout>
   )
 }
