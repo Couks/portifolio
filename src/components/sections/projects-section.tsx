@@ -153,6 +153,7 @@ export function ProjectsSection() {
       id="projects"
       title={t("projects.title")}
       subtitle={t("projects.subtitle")}
+      className="snap-start"
     >
       <motion.div
         ref={sectionRef}

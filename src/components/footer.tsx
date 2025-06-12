@@ -7,7 +7,7 @@ export default function Footer() {
   const { footer } = useTranslation();
 
   return (
-    <footer className="bg-background text-white py-4">
+    <footer className="bg-background text-white py-4 snap-start">
       <div className="container mx-auto flex  justify-center items-center gap-4">
         <motion.p
           initial={{ opacity: 0 }}

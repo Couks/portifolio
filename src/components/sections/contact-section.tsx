@@ -218,6 +218,7 @@ export default function Contact() {
       id="contact"
       title={contact('title')}
       subtitle={contact('subtitle')}
+      className="snap-start"
     >
       {/* Decorative floating elements */}
       {!prefersReducedMotion &&

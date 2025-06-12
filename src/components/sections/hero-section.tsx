@@ -64,7 +64,7 @@ export default function Hero() {
   }
 
   return (
-    <SectionLayout id="about" title="" className="min-h-screen">
+    <SectionLayout id="about" title="" className="min-h-screen snap-start">
       <motion.div
         variants={containerVariants}
         initial="hidden"

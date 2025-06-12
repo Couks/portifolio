@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="relative min-h-screen flex flex-col">
+      <div className="relative min-h-screen flex flex-col h-screen overflow-y-scroll snap-y snap-mandatory">
         {/* Background Elements */}
         <div className="fixed inset-0 pointer-events-none">
           {/* Grid Pattern */}

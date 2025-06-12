@@ -205,6 +205,7 @@ export default function TechSection() {
       id="tech-stack"
       title={tech("title")}
       subtitle={tech("subtitle")}
+      className="snap-start"
     >
       <motion.div
         ref={containerRef}
