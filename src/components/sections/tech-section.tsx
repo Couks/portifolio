@@ -182,13 +182,7 @@ export default function TechSection() {
     },
   }
 
-  // Decorative floating elements
-  const decorativeElements = [
-    { icon: <Code />, top: "10%", left: "5%", delay: 0 },
-    { icon: <Globe />, top: "20%", right: "8%", delay: 0.05 },
-    { icon: <Zap />, bottom: "15%", left: "7%", delay: 0.1 },
-    { icon: <Database />, bottom: "25%", right: "5%", delay: 0.15 },
-  ];
+
 
   return (
     <SectionLayout
@@ -196,35 +190,7 @@ export default function TechSection() {
       title={tech('title')}
       subtitle={tech('subtitle')}
     >
-      {/* Decorative floating elements */}
-      {!prefersReducedMotion &&
-        decorativeElements.map((el, i) => (
-          <motion.div
-            key={i}
-            className="absolute z-10 text-primary/20 hidden lg:block"
-            style={{
-              top: el.top || "auto",
-              left: el.left || "auto",
-              right: el.right || "auto",
-              bottom: el.bottom || "auto",
-            }}
-            initial={{ opacity: 0 }}
-            animate={controls}
-            transition={{ delay: el.delay }}
-          >
-            <motion.div
-              className="text-3xl"
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 15,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            >
-              {el.icon}
-            </motion.div>
-          </motion.div>
-        ))}
+
 
       <motion.div
         ref={containerRef}
