@@ -128,7 +128,7 @@ const NavItem = React.memo(function NavItem({
             rotate: isActive ? [0, 10, -10, 0] : 0
           }}
           transition={{
-            duration: 0.6,
+            duration: 0.3,
             ease: "easeInOut"
           }}
         >
@@ -414,7 +414,7 @@ const MobileNavbar = React.memo(function MobileNavbar({
           type: "spring",
           stiffness: 400,
           damping: 25,
-          duration: 0.5
+          duration: 0.3
         }}
       >
         <motion.button

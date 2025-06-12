@@ -117,6 +117,7 @@ export function ProjectsSection() {
         "Expo",
         "PostgreSQL",
         "Axios",
+        "WhatsApp API",
         "NativeWind",
       ],
       links: [
@@ -130,7 +131,7 @@ export function ProjectsSection() {
     {
       title: t("projects.items.devtips.title"),
       description: t("projects.items.devtips.description"),
-      technologies: ["React Native", "Expo", "React Navigation", "AsyncStorage", "TypeScript"],
+      technologies: ["React Native", "Expo", "AsyncStorage", "TypeScript"],
       links: [
         { link: "https://github.com/Couks/dev-tips", text: t("projects.links.repository") },
       ],
@@ -206,7 +207,7 @@ export function ProjectsSection() {
                   className="w-full"
                 >
                   <Card className={cn(
-                    "w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border shadow-lg transition-all duration-500",
+                    "w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border shadow-lg transition-all duration-300",
                     "bg-card backdrop-blur-sm border-border",
                     activeProject === index ? "ring-2 ring-primary/30 shadow-xl shadow-primary/10" : "",
                     "hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10"
@@ -220,7 +221,7 @@ export function ProjectsSection() {
                             scale: 1.05,
                             rotate: 0.5
                           }}
-                          transition={{ duration: 0.5, ease: "easeOut" }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
                           className="w-full h-full"
                         >
                           <Image
@@ -229,7 +230,7 @@ export function ProjectsSection() {
                             fill
                             sizes="(max-width: 768px) 100vw, 40vw"
                             priority
-                            className="object-cover object-top transition-all duration-700"
+                            className="object-cover object-top transition-all duration-300"
                           />
                         </motion.div>
                         {/* Subtle overlay for depth */}
@@ -366,7 +367,7 @@ export function ProjectsSection() {
         className="absolute inset-0 -z-10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.3 }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 blur-3xl" />
       </motion.div>

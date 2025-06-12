@@ -115,7 +115,7 @@ export default function Hero() {
                   fill
                   priority
                   sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
-                  className="rounded-md object-cover object-top shadow-xl transition-transform duration-500 hover:scale-105"
+                  className="rounded-md object-cover object-top shadow-xl transition-transform duration-300 hover:scale-105"
                 />
               </motion.div>
               

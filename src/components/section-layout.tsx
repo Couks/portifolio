@@ -37,7 +37,7 @@ export default function SectionLayout({
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.3 }}
       >
         <div className="absolute inset-0 bg-background" />
 

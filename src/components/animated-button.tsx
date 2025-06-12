@@ -178,7 +178,7 @@ export default function AnimatedButton({
               initial={{ x: "-100%" }}
               animate={{ x: "100%" }}
               transition={{
-                duration: 0.6,
+                duration: 0.3,
                 ease: "easeInOut"
               }}
             />
@@ -262,7 +262,7 @@ export default function AnimatedButton({
               initial={{ x: "-100%" }}
               animate={{ x: "100%" }}
               transition={{
-                duration: 0.6,
+                duration: 0.3,
                 ease: "easeInOut"
               }}
             />
