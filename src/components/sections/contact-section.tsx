@@ -225,7 +225,7 @@ export default function Contact() {
         decorativeElements.map((el, i) => (
           <motion.div
             key={i}
-            className="absolute z-50 text-primary/30 hidden md:block"
+            className="absolute z-50 text-primary/30 hidden lg:block"
             style={{
               top: el.top || "auto",
               left: el.left || "auto",
@@ -259,7 +259,7 @@ export default function Contact() {
       >
         {/* Left Column - Contact Info */}
         <motion.div className="space-y-8 lg:col-span-2" variants={itemVariants}>
-          <motion.div className="space-y-6 hidden md:block" variants={itemVariants}>
+          <motion.div className="space-y-6 hidden lg:block" variants={itemVariants}>
             <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
               {contact('info.title')}
@@ -318,7 +318,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          <motion.div className="space-y-4 hidden md:block" variants={itemVariants}>
+          <motion.div className="space-y-4 hidden lg:block" variants={itemVariants}>
             <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground flex items-center gap-2">
               <span className="w-1.5 h-6 bg-primary rounded-full"></span>
               {contact('connect.title')}
