@@ -17,8 +17,8 @@ export default function Home() {
           {/* Grid Pattern */}
           <div className="absolute inset-0 bg-grid-pattern bg-[length:30px_30px] bg-repeat opacity-[0.45] dark:opacity-[1] z-10" />
           
-          {/* Left Purple Gradient */}
-          <div className="absolute right-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent/50" />
+          {/* Purple LED Glow */}
+          <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,hsl(var(--accent)))] opacity-30" />
                        
         </div>
 

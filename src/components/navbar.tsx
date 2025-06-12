@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import {
@@ -179,7 +179,9 @@ interface NavbarContentProps {
   setShowLabels: (show: boolean) => void;
 }
 
-interface MobileNavbarProps extends NavbarContentProps {
+interface MobileNavbarProps {
+  activeItem: string;
+  setActiveItem: (item: string) => void;
   isMobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
 }
@@ -316,7 +318,7 @@ const DesktopNavbar = React.memo(function DesktopNavbar({
   );
 });
 
-// Mobile navbar component
+// Mobile navbar component - ATUALIZADO
 const MobileNavbar = React.memo(function MobileNavbar({
   activeItem,
   setActiveItem,
@@ -342,10 +344,8 @@ const MobileNavbar = React.memo(function MobileNavbar({
     [setActiveItem, toggleMobileMenu]
   );
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     if (!isMobileMenuOpen) return;
-
     const handleClickOutside = (event: MouseEvent) => {
       if (
         mobileMenuRef.current &&
@@ -354,40 +354,27 @@ const MobileNavbar = React.memo(function MobileNavbar({
         toggleMobileMenu();
       }
     };
-
-    document.addEventListener("mousedown", handleClickOutside, {
-      passive: true,
-    });
+    document.addEventListener("mousedown", handleClickOutside, { passive: true });
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMobileMenuOpen, toggleMobileMenu]);
 
   const buttonVariants = {
-    closed: { 
-      rotate: 0,
-      scale: 1
-    },
+    closed: { rotate: 0, scale: 1 },
     open: { 
-      rotate: prefersReducedMotion ? 0 : 90,
+      rotate: prefersReducedMotion ? 0 : 45,
       scale: 1.1,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 25
-      }
+      transition: { type: "spring", stiffness: 400, damping: 25 }
     }
   };
 
   const menuVariants = {
     hidden: {
       opacity: 0,
-      y: -20,
+      y: 20,
       scale: 0.95,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.2,
-        ease: "easeIn"
-      }
+      transition: { duration: prefersReducedMotion ? 0.1 : 0.2, ease: "easeIn" }
     },
     visible: {
       opacity: 1,
@@ -397,7 +384,7 @@ const MobileNavbar = React.memo(function MobileNavbar({
         type: "spring",
         stiffness: 400,
         damping: 25,
-        duration: prefersReducedMotion ? 0.2 : 0.6,
+        duration: prefersReducedMotion ? 0.2 : 0.4,
         staggerChildren: 0.05,
         delayChildren: 0.1
       }
@@ -406,141 +393,30 @@ const MobileNavbar = React.memo(function MobileNavbar({
 
   return (
     <>
-      <motion.div
-        className="fixed top-4 right-4 z-50"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 25,
-          duration: 0.3
-        }}
-      >
-        <motion.button
-          onClick={toggleMobileMenu}
-          variants={buttonVariants}
-          animate={isMobileMenuOpen ? "open" : "closed"}
-          className="flex items-center justify-center w-12 h-12 rounded-xl backdrop-blur-lg border shadow-lg bg-background/80 border-border hover:bg-foreground/10 transition-colors"
-          whileTap={{ scale: 0.95 }}
-          aria-label="Toggle menu"
-        >
-          <AnimatePresence mode="wait">
-            {isMobileMenuOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X className="w-6 h-6" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Menu className="w-6 h-6" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
-      </motion.div>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            ref={mobileMenuRef}
-            className="fixed top-0 left-0 w-full h-full bg-background/95 backdrop-blur-lg z-40"
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-          >
-            <motion.div 
-              className="flex flex-col justify-center items-center h-full px-8 py-16"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.1,
-                    delayChildren: 0.2
-                  }
-                }
-              }}
+      <div className="fixed bottom-4 left-4 z-50">
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              ref={mobileMenuRef}
+              className="absolute bottom-full mb-4"
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
             >
-              <motion.div
-                className="flex items-center justify-between w-full max-w-sm mb-12"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <motion.h3
-                  className="text-lg md:text-xl lg:text-2xl font-bold"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.1,
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 25
-                  }}
-                >
-                  Menu
-                </motion.h3>
-                <motion.div
-                  className="flex items-center gap-2"
-                  initial={{ opacity: 0, rotate: -180 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  transition={{
-                    delay: 0.2,
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 25
-                  }}
-                >
-                  <LanguageToggle showLabel={true} />
-                  <ThemeToggle />
-                </motion.div>
-              </motion.div>
-
               <motion.div 
-                className="flex flex-col gap-2"
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: {
-                      staggerChildren: 0.05,
-                      delayChildren: 0.1
-                    }
-                  }
-                }}
+                className="flex items-center flex-col gap-3 p-3 rounded-md backdrop-blur-lg border shadow-lg bg-background/80 border-border"
+                layout={!prefersReducedMotion}
               >
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
                     variants={{
-                      hidden: { 
-                        opacity: 0, 
-                        x: -30,
-                        scale: 0.9
-                      },
+                      hidden: { opacity: 0, x: -20 },
                       visible: {
                         opacity: 1,
                         x: 0,
-                        scale: 1,
-                        transition: {
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 30,
-                          delay: index * 0.05
-                        }
+                        transition: { type: "spring", stiffness: 400, damping: 30, delay: index * 0.05 }
                       }
                     }}
                   >
@@ -550,15 +426,42 @@ const MobileNavbar = React.memo(function MobileNavbar({
                       isActive={activeItem === item.name}
                       setActiveItem={handleNavItemClick}
                       icon={item.icon}
-                      isMobile={true}
+                      isMobile={false}
+                      showLabels={true}
                     />
                   </motion.div>
                 ))}
+                <motion.div 
+                  className="my-2 w-full h-px bg-border/50"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.3, duration: prefersReducedMotion ? 0.1 : 0.3, ease: "easeOut" }}
+                />
+                <motion.div 
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: prefersReducedMotion ? 0.1 : 0.4, type: "spring", stiffness: 300, damping: 25 }}
+                >
+                  <LanguageToggle showLabel={true} />
+                  <ThemeToggle />
+                </motion.div>
               </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+
+        <motion.button
+          onClick={toggleMobileMenu}
+          variants={buttonVariants}
+          animate={isMobileMenuOpen ? "open" : "closed"}
+          className="flex items-center justify-center w-12 h-12 rounded-full backdrop-blur-lg border shadow-lg bg-background/80 border-border hover:bg-foreground/10 transition-colors"
+          whileTap={{ scale: 0.95 }}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </motion.button>
+      </div>
     </>
   );
 });
@@ -572,13 +475,12 @@ export default function Navbar() {
   const { navigation } = useTranslation();
 
   const navItems = useMemo(() => [
-    { name: navigation('about'), href: "#about", icon: <Home className="w-4 h-4" /> },
-    { name: navigation('tech'), href: "#tech-stack", icon: <Code className="w-4 h-4" /> },
-    { name: navigation('projects'), href: "#projects", icon: <Briefcase className="w-4 h-4" /> },
-    { name: navigation('contact'), href: "#contact", icon: <Phone className="w-4 h-4" /> },
+    { name: navigation('about'), href: "#about" },
+    { name: navigation('tech'), href: "#tech-stack" },
+    { name: navigation('projects'), href: "#projects" },
+    { name: navigation('contact'), href: "#contact" },
   ], [navigation]);
 
-  // Memoized event handlers
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth < 768);
   }, []);
@@ -587,37 +489,26 @@ export default function Navbar() {
     setIsMobileMenuOpen((prev) => !prev);
   }, []);
 
-  // Enhanced setActiveItem to handle user clicks
   const handleSetActiveItem = useCallback((item: string) => {
     setIsUserClicking(true);
     setActiveItem(item);
-    
-    // Reset the flag after navigation animation completes
     setTimeout(() => {
       setIsUserClicking(false);
     }, 1000);
   }, []);
 
-  // Check if we're on mobile - with ResizeObserver for better performance
   useEffect(() => {
     handleResize();
-
-    // Use ResizeObserver instead of resize event when available
     if (typeof ResizeObserver !== "undefined") {
-      const resizeObserver = new ResizeObserver(() => {
-        handleResize();
-      });
-
+      const resizeObserver = new ResizeObserver(handleResize);
       resizeObserver.observe(document.documentElement);
       return () => resizeObserver.disconnect();
     } else {
-      // Fallback to resize event
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
   }, [handleResize]);
 
-  // Handle scroll behavior with Intersection Observer for better performance
   useEffect(() => {
     const sectionObservers: IntersectionObserver[] = [];
     let timeoutId: NodeJS.Timeout;
@@ -689,8 +580,6 @@ export default function Navbar() {
       setActiveItem={handleSetActiveItem}
       isMobileMenuOpen={isMobileMenuOpen}
       toggleMobileMenu={toggleMobileMenu}
-      showLabels={false}
-      setShowLabels={() => {}}
     />
   ) : (
     <DesktopNavbar

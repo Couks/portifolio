@@ -30,7 +30,7 @@ export function ScrollToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed bottom-8 right-6 z-50"
+          className="fixed bottom-4 right-4 z-50"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
@@ -40,9 +40,9 @@ export function ScrollToTop() {
           <Button
             onClick={scrollToTop}
             size="icon"
-            className="rounded-full shadow-lg bg-primary hover:bg-primary/90 size-8"
+            className="rounded-full shadow-lg bg-primary hover:bg-primary/90 size-12"
           >
-            <ArrowUp className="size-6" />
+            <ArrowUp className="size-12" />
           </Button>
         </motion.div>
       )}
