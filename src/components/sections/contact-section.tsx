@@ -31,6 +31,7 @@ import SectionLayout from "../section-layout";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/lib/hooks/useTranslation";
+import AnimatedButton from "../animated-button";
 
 export default function Contact() {
   const { contact } = useTranslation();
@@ -577,32 +578,23 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.div className="pt-2" variants={itemVariants}>
-                  <motion.button
-                    type="submit"
-                    disabled={formState === "submitting"}
-                    className="w-full h-12 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-2 relative overflow-hidden group disabled:opacity-50"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {/* Button background animation */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary-foreground/20 to-primary/0"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "100%" }}
-                      transition={{
-                        duration: 1,
-                        repeat: Number.POSITIVE_INFINITY,
-                        repeatType: "loop",
-                      }}
-                    />
-
-                    {formState === "submitting" ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
+                  <AnimatedButton
+                    href="#"
+                    icon={formState === "submitting" ? 
+                      <Loader2 className="w-5 h-5 animate-spin" /> : 
                       <Send className="w-5 h-5" />
-                    )}
-                    {formState === "submitting" ? contact('form.sending') : contact('form.send')}
-                  </motion.button>
+                    }
+                    label={formState === "submitting" ? contact('form.sending') : contact('form.send')}
+                    variant="apple-primary"
+                    className="w-full h-12 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (formState !== "submitting") {
+                        handleSubmit(e as unknown as React.FormEvent);
+                      }
+                    }}
+                    disabled={formState === "submitting"}
+                  />
                 </motion.div>
 
                 {/* Privacy note */}

@@ -4,7 +4,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "framer-motion"
 import { Github, Linkedin, Mail } from 'lucide-react'
 import SectionLayout from "../section-layout"
-import linkedin from "@/assets/gif.gif"
+import linkedin from "@/assets/new-gif.gif"
 import AnimatedText from "../animated-text"
 import AnimatedButton from "../animated-button"
 import AnimatedCard from "../animated-card"
@@ -111,7 +111,7 @@ export default function Hero() {
                   fill
                   priority
                   sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
-                  className="rounded-md object-cover shadow-xl transition-transform duration-500 hover:scale-105"
+                  className="rounded-md object-cover object-top shadow-xl transition-transform duration-500 hover:scale-105"
                 />
               </motion.div>
               
@@ -160,7 +160,7 @@ export default function Hero() {
               <div>
                 <AnimatedText
                   text={hero('name')}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground"
                 />
                 <AnimatedText
                   text={hero('title')}

@@ -13,9 +13,19 @@ interface AnimatedButtonProps {
   label: string
   variant?: "default" | "apple" | "apple-primary"
   className?: string
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
+  disabled?: boolean
 }
 
-export default function AnimatedButton({ href, icon, label, variant = "default", className }: AnimatedButtonProps) {
+export default function AnimatedButton({ 
+  href, 
+  icon, 
+  label, 
+  variant = "default", 
+  className,
+  onClick,
+  disabled 
+}: AnimatedButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
   const prefersReducedMotion = useReducedMotion()
 
@@ -100,16 +110,17 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
         variants={buttonVariants}
         initial="hidden"
         animate="visible"
-        whileHover="hover"
-        whileTap="tap"
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
+        whileHover={disabled ? {} : "hover"}
+        whileTap={disabled ? {} : "tap"}
+        onHoverStart={() => !disabled && setIsHovered(true)}
+        onHoverEnd={() => !disabled && setIsHovered(false)}
         className="relative"
       >
         <Link
-          href={href}
+          href={disabled ? "#" : href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onClick}
           className={cn(
             "relative flex items-center gap-2 px-5 py-2.5 rounded-full",
             "backdrop-blur-lg bg-secondary/90 border border-border",
@@ -117,6 +128,7 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
             "transition-all duration-300",
             "hover:bg-secondary hover:shadow-lg hover:shadow-secondary/20",
             "overflow-hidden",
+            disabled && "opacity-50 cursor-not-allowed pointer-events-none",
             className
           )}
         >
@@ -182,16 +194,17 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
         variants={buttonVariants}
         initial="hidden"
         animate="visible"
-        whileHover="hover"
-        whileTap="tap"
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
+        whileHover={disabled ? {} : "hover"}
+        whileTap={disabled ? {} : "tap"}
+        onHoverStart={() => !disabled && setIsHovered(true)}
+        onHoverEnd={() => !disabled && setIsHovered(false)}
         className="relative"
       >
         <Link
-          href={href}
+          href={disabled ? "#" : href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onClick}
           className={cn(
             "relative flex items-center gap-2 px-5 py-2.5 rounded-full",
             "bg-primary border border-border",
@@ -199,7 +212,8 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
             "transition-all duration-300",
             "hover:shadow-lg hover:shadow-primary/20",
             "overflow-hidden",
-            className 
+            disabled && "opacity-50 cursor-not-allowed pointer-events-none",
+            className
           )}
         >
           {/* Icon with enhanced animations */}
@@ -264,18 +278,20 @@ export default function AnimatedButton({ href, icon, label, variant = "default",
       variants={buttonVariants}
       initial="hidden"
       animate="visible"
-      whileHover="hover"
-      whileTap="tap"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      whileHover={disabled ? {} : "hover"}
+      whileTap={disabled ? {} : "tap"}
+      onHoverStart={() => !disabled && setIsHovered(true)}
+      onHoverEnd={() => !disabled && setIsHovered(false)}
     >
       <Link
-        href={href}
+        href={disabled ? "#" : href}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={onClick}
         className={cn(
           "relative flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium overflow-hidden",
-          className 
+          disabled && "opacity-50 cursor-not-allowed pointer-events-none",
+          className
         )}
       >
         {/* Icon with animations */}

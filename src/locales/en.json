@@ -11,10 +11,10 @@
     "contact": "Contact"
   },
   "hero": {
-    "name": "Matheus Castro",
+    "name": "Hi, I'm Matheus!",
     "title": "Full Stack Developer",
     "subtitle": "React • Next.js • TypeScript • React Native",
-    "bio": "Hi there! 👋<br /><br />I'm passionate about creating fluid and accessible interfaces. I design and code beautifully simple things, and I love what I do.<br /><br />Focused on React, Next.js and React Native, I constantly seek to improve my skills to deliver exceptional user experiences.",
+    "bio": "I turn ideas into amazing digital experiences! ✨<br/><br/>My mission is to create products that not only work flawlessly but that people love to use. With React and Next.js at heart, I'm always pushing the boundaries of performance and innovation.",
     "buttons": {
       "github": "GitHub",
       "linkedin": "LinkedIn",

@@ -11,14 +11,14 @@
     "contact": "Contato"
   },
   "hero": {
-    "name": "Matheus Castro",
+    "name": "Oi, eu sou o Matheus!",
     "title": "Desenvolvedor Full Stack",
     "subtitle": "React • Next.js • TypeScript • React Native",
-    "bio": "Olá! 👋<br /><br />Sou apaixonado por criar interfaces fluidas e acessíveis. Projeto e programo coisas lindas e simples, e amo o que faço.<br /><br />Focado em React, Next.js e React Native, busco constantemente aprimorar minhas habilidades para entregar experiências excepcionais ao usuário.",
+    "bio": "Transformo ideias em experiências digitais incríveis! ✨<br/><br/>Minha missão é criar produtos que não só funcionam perfeitamente, mas que as pessoas adoram usar. Com React e Next.js no coração, estou sempre em busca do próximo nível em performance e inovação.",
     "buttons": {
       "github": "GitHub",
       "linkedin": "LinkedIn",
-      "hire": "Contratar"
+      "hire": "Contatar"
     }
   },
   "experience": {
@@ -68,8 +68,8 @@
     }
   },
   "tech": {
-    "title": "Stack Tecnológica",
-    "subtitle": "Tecnologias e ferramentas que uso no dia a dia",
+    "title": "Tecnologias & Ferramentas",
+    "subtitle": "Minha stack de desenvolvimento completa",
     "categories": {
       "frontend": "Frontend Moderno",
       "backend": "Backend para Frontend",

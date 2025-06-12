@@ -11,75 +11,89 @@ html {
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* fundo muito claro para modo claro */
-    --foreground: 32 40% 8%; /* texto bem escuro para máximo contraste */
-    --card: 0 0% 100%; /* cards brancos */
-    --card-foreground: 32 40% 8%;
+    /* Base - Modo claro inspirado na luz do dia pela janela */
+    --background: 48 30% 96%; /* Bege suave claro */
+    --foreground: 200 35% 20%; /* Azul escuro para texto */
+    --card: 0 0% 100%; /* Branco puro para cards */
+    --card-foreground: 200 35% 20%;
     --popover: 0 0% 100%;
-    --popover-foreground: 32 40% 8%;
+    --popover-foreground: 200 35% 20%;
 
-    --primary: 38 63% 45%; /* laranja queimado mais escuro para melhor contraste */
-    --primary-foreground: 0 0% 98%; /* texto claro sobre o primário */
+    /* Cor primária - Verde-azulado do moletom */
+    --primary: 174 60% 35%; /* Teal vibrante */
+    --primary-foreground: 48 30% 96%;
 
-    --secondary: 0 0% 92%; /* cinza muito claro para elementos secundários */
-    --secondary-foreground: 32 40% 12%;
+    /* Cor secundária - Tom suave complementar */
+    --secondary: 200 25% 92%; /* Azul suave */
+    --secondary-foreground: 200 35% 20%;
 
-    --muted: 0 0% 94%; /* fundo sutil para elementos silenciados */
-    --muted-foreground: 32 25% 35%; /* texto médio com melhor contraste */
+    /* Tons silenciados - Inspirados nas plantas */
+    --muted: 150 20% 92%; /* Verde suave */
+    --muted-foreground: 200 25% 35%; /* Azul médio */
 
-    --accent: 38 63% 45%; /* mantém consistência com o primário */
-    --accent-foreground: 0 0% 98%;
+    /* Acentos - Luz roxa do LED */
+    --accent: 280 80% 65%; /* Roxo neon */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 70% 45%; /* vermelho com bom contraste */
-    --destructive-foreground: 0 0% 98%;
+    /* Destrutivo */
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 32 15% 80%; /* bordas mais visíveis */
-    --input: 0 0% 96%; /* inputs com leve diferenciação do fundo */
-    --ring: 38 63% 45%; /* mantém consistência com primário */
+    /* Elementos de interface */
+    --border: 200 20% 88%; /* Azul muito claro */
+    --input: 174 15% 92%; /* Teal claro */
+    --ring: 174 60% 35%; /* Mesma cor primária */
 
     --radius: 2rem;
 
-    /* Cores para gráficos - versão clara otimizada */
-    --chart-1: 38 63% 45%; /* laranja queimado principal */
-    --chart-2: 27 55% 40%; /* marrom avermelhado */
-    --chart-3: 32 35% 50%; /* marrom claro */
-    --chart-4: 45 25% 55%; /* cinza esverdeado */
-    --chart-5: 37 45% 45%; /* oliva médio */
+    /* Cores para gráficos */
+    --chart-1: 174 60% 35%; /* Teal */
+    --chart-2: 200 35% 65%; /* Azul médio */
+    --chart-3: 280 80% 65%; /* Roxo */
+    --chart-4: 150 40% 45%; /* Verde */
+    --chart-5: 200 35% 50%; /* Azul */
   }
 
   .dark {
-    --background: 32 20% 10%; /* fundo muito escuro */
-    --foreground: 45 15% 90%; /* texto claro para bom contraste */
-    --card: 32 20% 12%; /* cards ligeiramente mais claros que o fundo */
-    --card-foreground: 45 15% 90%;
-    --popover: 32 20% 12%;
-    --popover-foreground: 45 15% 90%;
+    /* Base - Modo escuro inspirado no ambiente noturno da imagem */
+    --background: 200 35% 12%; /* Azul escuro do fundo */
+    --foreground: 48 20% 92%; /* Texto claro amarelado */
+    --card: 200 35% 15%; /* Um pouco mais claro que o fundo */
+    --card-foreground: 48 20% 92%;
+    --popover: 200 35% 15%;
+    --popover-foreground: 48 20% 92%;
 
-    --primary: 38 63% 55%; /* mantém o laranja queimado */
-    --primary-foreground: 32 20% 10%; /* texto escuro sobre o primário */
+    /* Cor primária - Verde-azulado mais brilhante */
+    --primary: 174 55% 45%; /* Teal mais vivo */
+    --primary-foreground: 200 35% 12%;
 
-    --secondary: 32 15% 18%; /* cinza escuro para elementos secundários */
-    --secondary-foreground: 45 15% 85%;
+    /* Cor secundária - Tom complementar escuro */
+    --secondary: 200 30% 25%; /* Azul escuro */
+    --secondary-foreground: 48 20% 92%;
 
-    --muted: 32 12% 16%; /* fundo sutil para elementos silenciados */
-    --muted-foreground: 45 10% 60%; /* texto médio para elementos silenciados */
+    /* Tons silenciados - Plantas na penumbra */
+    --muted: 200 25% 20%; /* Azul muito escuro */
+    --muted-foreground: 48 15% 75%; /* Texto suave */
 
-    --accent: 38 63% 55%; /* mantém consistência */
-    --accent-foreground: 32 20% 10%;
+    /* Acentos - LED roxo mais intenso no escuro */
+    --accent: 280 80% 70%; /* Roxo neon brilhante */
+    --accent-foreground: 200 35% 12%;
 
-    --destructive: 0 65% 45%; /* vermelho ajustado para modo escuro */
-    --destructive-foreground: 45 15% 90%;
+    /* Destrutivo */
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 48 20% 92%;
 
-    --border: 32 15% 22%; /* bordas mais visíveis no escuro */
-    --input: 32 15% 20%; /* inputs com contraste adequado */
-    --ring: 38 63% 55%;
+    /* Elementos de interface */
+    --border: 200 25% 25%; /* Azul escuro para bordas */
+    --input: 200 30% 18%; /* Input mais escuro */
+    --ring: 174 55% 45%; /* Mesma cor primária */
 
-    /* Cores para gráficos - versão escura otimizada */
-    --chart-1: 38 63% 55%; /* laranja queimado principal */
-    --chart-2: 27 55% 40%; /* marrom avermelhado escurecido */
-    --chart-3: 32 35% 35%; /* marrom médio */
-    --chart-4: 45 25% 40%; /* cinza esverdeado escurecido */
-    --chart-5: 37 45% 30%; /* oliva escuro */
+    /* Cores para gráficos - Versão noturna */
+    --chart-1: 174 55% 45%; /* Teal */
+    --chart-2: 200 40% 55%; /* Azul médio */
+    --chart-3: 280 80% 70%; /* Roxo */
+    --chart-4: 150 40% 55%; /* Verde */
+    --chart-5: 200 45% 60%; /* Azul */
   }
 }
 

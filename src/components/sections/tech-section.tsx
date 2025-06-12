@@ -31,6 +31,8 @@ import {
   SiEsbuild,
   SiGoogleauthenticator,
   SiFramer,
+  SiWordpress,
+  SiPayloadcms,
 } from "react-icons/si"
 import { FaNode, FaGitAlt } from "react-icons/fa"
 import { TbApi } from "react-icons/tb"
@@ -80,6 +82,8 @@ export default function TechSection() {
         { name: "NestJS", icon: SiNestjs, color: "text-[#E0234E]" },
         { name: "Prisma ORM", icon: SiPrisma, color: "text-foreground" },
         { name: "Drizzle ORM", icon: SiDrizzle, color: "text-foreground" },
+        { name: "WordPress", icon: SiWordpress, color: "text-[#21759B]" },
+        { name: "PayloadCMS", icon: SiPayloadcms, color: "text-foreground" },
       ],
     },
     {
