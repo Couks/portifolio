@@ -1,18 +1,16 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { motion, useReducedMotion } from "framer-motion"
-import { Github, Linkedin, Mail } from 'lucide-react'
-import SectionLayout from "../section-layout"
-import linkedin from "@/assets/new-gif.gif"
-import AnimatedText from "../animated-text"
-import AnimatedButton from "../animated-button"
-import AnimatedCard from "../animated-card"
-import { useTranslation } from "@/lib/hooks/useTranslation"
+import { motion, useReducedMotion } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
+import SectionLayout from "../section-layout";
+import AnimatedText from "../animated-text";
+import AnimatedButton from "../animated-button";
+import AnimatedCard from "../animated-card";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion()
-  const { hero } = useTranslation()
+  const prefersReducedMotion = useReducedMotion();
+  const { hero } = useTranslation();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -23,7 +21,7 @@ export default function Hero() {
         delayChildren: prefersReducedMotion ? 0 : 0.05,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -35,33 +33,33 @@ export default function Hero() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const imageVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
-      scale: 0.9
+      scale: 0.9,
     },
-    visible: { 
+    visible: {
       opacity: 1,
       scale: 1,
       transition: {
         duration: prefersReducedMotion ? 0.1 : 0.4,
-        ease: "easeOut"
-      }
-    }
-  }
+        ease: "easeOut",
+      },
+    },
+  };
 
   const overlayVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: {
         delay: 0.6,
-        duration: prefersReducedMotion ? 0.1 : 0.4
-      }
-    }
-  }
+        duration: prefersReducedMotion ? 0.1 : 0.4,
+      },
+    },
+  };
 
   return (
     <SectionLayout id="about" title="" className="min-h-screen snap-start">
@@ -77,82 +75,97 @@ export default function Hero() {
           <motion.div
             variants={imageVariants}
             className="order-1 lg:order-2 relative mx-auto w-60 h-60 sm:w-64 sm:h-64 lg:w-[100%] lg:h-[100%]"
-            whileHover={prefersReducedMotion ? {} : {
-              scale: 1.02,
-              transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 25
-              }
-            }}
+            whileHover={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: 1.02,
+                    transition: {
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 25,
+                    },
+                  }
+            }
           >
             <div className="relative w-full h-full">
               {/* iOS-style image container with subtle effects */}
-              <motion.div 
-                className="absolute -inset-4 rounded-lg bg-gradient-to-tr from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/10 shadow-xl" 
+              <motion.div
+                className="absolute -inset-4 rounded-lg bg-gradient-to-tr from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/10 shadow-xl"
                 variants={overlayVariants}
                 initial="hidden"
                 animate="visible"
-                whileHover={prefersReducedMotion ? {} : {
-                  scale: 1.01,
-                  transition: {
-                    duration: 0.3,
-                    ease: "easeOut"
-                  }
-                }}
+                whileHover={
+                  prefersReducedMotion
+                    ? {}
+                    : {
+                        scale: 1.01,
+                        transition: {
+                          duration: 0.3,
+                          ease: "easeOut",
+                        },
+                      }
+                }
               />
-              
+
               <motion.div
-                className="relative w-full h-full overflow-hidden rounded-md"
+                className="relative w-full h-full overflow-hidden rounded-2xl"
                 variants={imageVariants}
                 initial="hidden"
                 animate="visible"
               >
-                <Image
-                  src={linkedin || "/placeholder.svg"}
-                  alt={hero('name')}
-                  unoptimized
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 384px"
-                  className="rounded-md object-cover object-top shadow-xl transition-transform duration-300 hover:scale-105"
+                <video
+                  src="/videos/hero-video.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover object-top shadow-xl transition-transform duration-300 hover:scale-105"
                 />
               </motion.div>
-              
+
               {/* Subtle reflection overlay */}
-              <motion.div 
-                className="absolute inset-0 rounded-[32px] bg-gradient-to-b from-primary/10 to-transparent opacity-50" 
+              <motion.div
+                className="absolute inset-0 rounded-[32px] bg-gradient-to-b from-primary/10 to-transparent opacity-50"
                 variants={overlayVariants}
                 initial="hidden"
                 animate="visible"
               />
-              
+
               {/* Subtle floating animation */}
               <motion.div
                 className="absolute -inset-0.5 rounded-[32px]"
-                animate={prefersReducedMotion ? {} : {
-                  y: [0, -5, 0],
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? {}
+                    : {
+                        y: [0, -5, 0],
+                      }
+                }
                 transition={{
                   duration: 4,
                   repeat: Number.POSITIVE_INFINITY,
                   repeatType: "reverse",
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
 
               {/* Animated border glow */}
               <motion.div
                 className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 opacity-0"
-                animate={prefersReducedMotion ? {} : {
-                  opacity: [0, 0.3, 0],
-                  scale: [1, 1.02, 1]
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? {}
+                    : {
+                        opacity: [0, 0.3, 0],
+                        scale: [1, 1.02, 1],
+                      }
+                }
                 transition={{
                   duration: 3,
                   repeat: Number.POSITIVE_INFINITY,
                   repeatType: "reverse",
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
             </div>
@@ -163,53 +176,50 @@ export default function Hero() {
             <div className="space-y-8">
               <motion.div variants={itemVariants}>
                 <AnimatedText
-                  text={hero('name')}
+                  text={hero("name")}
                   className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground"
                 />
                 <AnimatedText
-                  text={hero('title')}
+                  text={hero("title")}
                   className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium mt-2"
                 />
                 <AnimatedText
-                  text={hero('subtitle')}
+                  text={hero("subtitle")}
                   className="text-sm text-foreground dark:text-primary font-medium mt-3"
                 />
               </motion.div>
 
               {/* Bio with subtle backdrop blur */}
               <motion.div variants={itemVariants}>
-                <AnimatedCard
-                  delay={0.4}
-                  className="relative p-6"
-                >
-                  <p 
+                <AnimatedCard delay={0.4} className="relative p-6">
+                  <p
                     className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0"
-                    dangerouslySetInnerHTML={{ __html: hero('bio') }}
+                    dangerouslySetInnerHTML={{ __html: hero("bio") }}
                   />
                 </AnimatedCard>
               </motion.div>
 
               {/* Social buttons - iOS style */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="flex flex-wrap gap-4 justify-center lg:justify-start"
               >
                 <AnimatedButton
                   href="https://github.com/Couks"
                   icon={<Github className="w-5 h-5" />}
-                  label={hero('buttons.github')}
+                  label={hero("buttons.github")}
                   variant="apple-primary"
                 />
                 <AnimatedButton
                   href="https://www.linkedin.com/in/matheuscastroks/"
                   icon={<Linkedin className="w-5 h-5" />}
-                  label={hero('buttons.linkedin')}
+                  label={hero("buttons.linkedin")}
                   variant="apple-primary"
                 />
                 <AnimatedButton
                   href="mailto:matheuscastroks@gmail.com"
                   icon={<Mail className="w-5 h-5" />}
-                  label={hero('buttons.hire')}
+                  label={hero("buttons.hire")}
                   variant="apple"
                 />
               </motion.div>
@@ -218,5 +228,5 @@ export default function Hero() {
         </div>
       </motion.div>
     </SectionLayout>
-  )
+  );
 }
